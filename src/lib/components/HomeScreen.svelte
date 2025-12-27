@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { gameStore } from '$lib/stores/gameStore';
+	import { showInstallButton, isIOS, installPwa, openIOSModal } from '$lib/stores/pwaStore';
 	import { t, locale } from '$lib/i18n';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
+	import IOSInstallModal from '$lib/components/ui/IOSInstallModal.svelte';
 
 	interface Props {
 		onShowHelp?: () => void;
@@ -16,6 +18,14 @@
 
 	function handleToggleLocale() {
 		locale.toggle();
+	}
+
+	function handleInstall() {
+		if ($isIOS) {
+			openIOSModal();
+		} else {
+			installPwa();
+		}
 	}
 </script>
 
@@ -68,6 +78,17 @@
 			<p class="info">
 				{$t.home.playerCount} · {$t.home.singlePhone}
 			</p>
+
+			{#if $showInstallButton}
+				<button class="install-btn" onclick={handleInstall}>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+						<polyline points="7 10 12 15 17 10" />
+						<line x1="12" y1="15" x2="12" y2="3" />
+					</svg>
+					{$t.pwa?.install ?? 'Installer le jeu'}
+				</button>
+			{/if}
 		</div>
 
 		<div class="nav-icons">
@@ -97,6 +118,8 @@
 		</div>
 	</nav>
 </div>
+
+<IOSInstallModal />
 
 <style>
 	.home-cinematic {
@@ -467,6 +490,35 @@
 		color: var(--color-text-muted);
 		margin: var(--spacing-sm) 0 0 0;
 		opacity: 0.9;
+	}
+
+	.install-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-sm);
+		margin-top: var(--spacing-lg);
+		padding: var(--spacing-sm) var(--spacing-lg);
+		background: transparent;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition: all var(--transition-fast);
+	}
+
+	.install-btn:hover {
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	.install-btn:active {
+		transform: scale(0.98);
+	}
+
+	.install-btn svg {
+		opacity: 0.8;
 	}
 
 	.nav-icons {
