@@ -167,6 +167,14 @@ export const fr: Translations = {
 		back: 'Retour'
 	},
 
+	pwa: {
+		install: 'Installer le jeu',
+		installTitle: 'Installer Omertà',
+		step1: 'Appuyez sur le bouton Partager',
+		step2: "Sélectionnez « Sur l'écran d'accueil »",
+		understood: 'Compris'
+	},
+
 	nightPhase: {
 		title: 'Phase de nuit',
 		everyoneCloseEyes: 'Tout le monde ferme les yeux',

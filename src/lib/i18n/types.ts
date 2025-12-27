@@ -188,6 +188,15 @@ export interface Translations {
 		startGame: string;
 	};
 
+	// PWA
+	pwa: {
+		install: string;
+		installTitle: string;
+		step1: string;
+		step2: string;
+		understood: string;
+	};
+
 	// Help
 	help: {
 		title: string;

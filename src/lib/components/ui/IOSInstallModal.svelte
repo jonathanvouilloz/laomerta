@@ -10,7 +10,7 @@
 {#if $showIOSModal}
 	<div class="modal-overlay" onclick={handleClose} role="presentation">
 		<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-			<h2 class="modal-title">{$t.pwa?.installTitle ?? 'Installer Omertà'}</h2>
+			<h2 class="modal-title">{$t.pwa.installTitle}</h2>
 
 			<div class="steps">
 				<div class="step">
@@ -21,7 +21,7 @@
 							<line x1="12" y1="2" x2="12" y2="15" />
 						</svg>
 					</div>
-					<p class="step-text">{$t.pwa?.step1 ?? 'Appuyez sur le bouton Partager'}</p>
+					<p class="step-text">{$t.pwa.step1}</p>
 				</div>
 
 				<div class="step">
@@ -32,12 +32,12 @@
 							<line x1="8" y1="12" x2="16" y2="12" />
 						</svg>
 					</div>
-					<p class="step-text">{$t.pwa?.step2 ?? "Sélectionnez « Sur l'écran d'accueil »"}</p>
+					<p class="step-text">{$t.pwa.step2}</p>
 				</div>
 			</div>
 
 			<button class="close-btn" onclick={handleClose}>
-				{$t.pwa?.understood ?? 'Compris'}
+				{$t.pwa.understood}
 			</button>
 		</div>
 	</div>

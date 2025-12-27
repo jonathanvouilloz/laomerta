@@ -167,6 +167,14 @@ export const en: Translations = {
 		back: 'Back'
 	},
 
+	pwa: {
+		install: 'Install game',
+		installTitle: 'Install Omertà',
+		step1: 'Tap the Share button',
+		step2: "Select 'Add to Home Screen'",
+		understood: 'Got it'
+	},
+
 	nightPhase: {
 		title: 'Night phase',
 		everyoneCloseEyes: 'Everyone close your eyes',
