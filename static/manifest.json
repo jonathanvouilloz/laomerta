@@ -1,0 +1,17 @@
+{
+	"name": "Omertà",
+	"short_name": "Omertà",
+	"description": "Jeu de déduction sociale pour 5-10 joueurs",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#1a1a2e",
+	"theme_color": "#1a1a2e",
+	"orientation": "portrait",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml"
+		}
+	]
+}
