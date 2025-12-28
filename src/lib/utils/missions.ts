@@ -4,43 +4,43 @@ import type { MissionConfig, Mission } from '$lib/types/game';
 const MISSION_CONFIGS: Record<number, MissionConfig> = {
 	5: {
 		teamSizes: [2, 3, 2, 3, 3],
-		mafiaCount: 3,
-		policeCount: 2,
+		goodCount: 3,
+		evilCount: 2,
 		specialRolesAvailable: false,
 		specialRolesRecommended: false
 	},
 	6: {
 		teamSizes: [2, 3, 4, 3, 4],
-		mafiaCount: 4,
-		policeCount: 2,
+		goodCount: 4,
+		evilCount: 2,
 		specialRolesAvailable: true,
 		specialRolesRecommended: false
 	},
 	7: {
 		teamSizes: [2, 3, 3, 4, 4],
-		mafiaCount: 4,
-		policeCount: 3,
+		goodCount: 4,
+		evilCount: 3,
 		specialRolesAvailable: true,
 		specialRolesRecommended: true
 	},
 	8: {
 		teamSizes: [3, 4, 4, 5, 5],
-		mafiaCount: 5,
-		policeCount: 3,
+		goodCount: 5,
+		evilCount: 3,
 		specialRolesAvailable: true,
 		specialRolesRecommended: true
 	},
 	9: {
 		teamSizes: [3, 4, 4, 5, 5],
-		mafiaCount: 6,
-		policeCount: 3,
+		goodCount: 6,
+		evilCount: 3,
 		specialRolesAvailable: true,
 		specialRolesRecommended: true
 	},
 	10: {
 		teamSizes: [3, 4, 4, 5, 5],
-		mafiaCount: 6,
-		policeCount: 4,
+		goodCount: 6,
+		evilCount: 4,
 		specialRolesAvailable: true,
 		specialRolesRecommended: true
 	}

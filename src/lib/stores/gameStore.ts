@@ -13,8 +13,8 @@ const initialState: GameState = {
 	currentPlayerIndex: 0,
 	missions: [],
 	currentMissionIndex: 0,
-	mafiaScore: 0,
-	policeScore: 0,
+	goodScore: 0,
+	evilScore: 0,
 	consecutiveRejections: 0,
 	accusedPlayerId: null,
 	winner: null,
@@ -163,7 +163,7 @@ function createGameStore() {
 						// 5 refus consécutifs = victoire des Flics
 						return {
 							...state,
-							winner: 'police',
+							winner: 'evil',
 							winReasonKey: 'paralyzed',
 							phase: 'end'
 						};
@@ -218,8 +218,8 @@ function createGameStore() {
 						}
 					};
 
-					const newMafiaScore = missionSuccess ? state.mafiaScore + 1 : state.mafiaScore;
-					const newPoliceScore = !missionSuccess ? state.policeScore + 1 : state.policeScore;
+					const newGoodScore = missionSuccess ? state.goodScore + 1 : state.goodScore;
+					const newEvilScore = !missionSuccess ? state.evilScore + 1 : state.evilScore;
 
 					// Vider les votes secrets
 					secretVotes = [];
@@ -227,8 +227,8 @@ function createGameStore() {
 					return {
 						...state,
 						missions,
-						mafiaScore: newMafiaScore,
-						policeScore: newPoliceScore,
+						goodScore: newGoodScore,
+						evilScore: newEvilScore,
 						phase: 'mission-result-pending'
 					};
 				}
@@ -250,11 +250,11 @@ function createGameStore() {
 		continueAfterResult: () =>
 			update((state) => {
 				// Vérifier les conditions de victoire
-				if (state.mafiaScore >= 3) {
-					// Mafia a gagné 3 missions
+				if (state.goodScore >= 3) {
+					// Good team a gagné 3 missions
 					const config = getMissionConfig(state.players.length);
 					if (state.useSpecialRoles && config.specialRolesAvailable) {
-						// L'Enquêteur peut tenter d'identifier La Taupe
+						// L'Assassin peut tenter d'identifier Merlin
 						return {
 							...state,
 							phase: 'accusation'
@@ -262,17 +262,17 @@ function createGameStore() {
 					}
 					return {
 						...state,
-						winner: 'famiglia',
+						winner: 'good',
 						winReasonKey: 'operationsSuccess',
 						phase: 'end'
 					};
 				}
 
-				if (state.policeScore >= 3) {
-					// Police a gagné
+				if (state.evilScore >= 3) {
+					// Evil team a gagné
 					return {
 						...state,
-						winner: 'police',
+						winner: 'evil',
 						winReasonKey: 'networkDismantled',
 						phase: 'end'
 					};
@@ -291,17 +291,17 @@ function createGameStore() {
 				};
 			}),
 
-		// Accusation de La Taupe
+		// Accusation de Merlin
 		accusePlayer: (playerId: string) =>
 			update((state) => {
 				const accusedPlayer = state.players.find((p) => p.id === playerId);
-				const isTaupe = accusedPlayer?.role === 'taupe';
+				const isMerlin = accusedPlayer?.role === 'merlin';
 
-				if (isTaupe) {
+				if (isMerlin) {
 					return {
 						...state,
 						accusedPlayerId: playerId,
-						winner: 'police',
+						winner: 'evil',
 						winReasonKey: 'moleIdentified',
 						phase: 'end'
 					};
@@ -310,7 +310,7 @@ function createGameStore() {
 				return {
 					...state,
 					accusedPlayerId: playerId,
-					winner: 'famiglia',
+					winner: 'good',
 					winReasonKey: 'moleHidden',
 					phase: 'end'
 				};

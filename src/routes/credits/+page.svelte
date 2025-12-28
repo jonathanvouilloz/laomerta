@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Omertà - {$t.credits.title}</title>
+	<title>Isla Plomo - {$t.credits.title}</title>
 </svelte:head>
 
 <div class="credits-page">
@@ -17,9 +17,7 @@
 
 	<!-- Back button -->
 	<button class="back-btn" onclick={() => goto('/')} aria-label={$t.credits.back}>
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-			<path d="M19 12H5M12 19l-7-7 7-7" />
-		</svg>
+		<img src="/arrow-back.webp" alt="" width="44" height="44" />
 	</button>
 
 	<!-- Content -->
@@ -129,18 +127,12 @@
 		height: 2.75rem;
 		padding: 0;
 		border: none;
-		border-radius: var(--radius-full);
-		background-color: rgba(22, 33, 62, 0.8);
-		backdrop-filter: blur(8px);
-		color: var(--color-text-muted);
+		background: transparent;
 		cursor: pointer;
 		transition: all var(--transition-fast);
-		box-shadow: var(--shadow-sm);
 	}
 
 	.back-btn:hover {
-		background-color: var(--color-surface-light);
-		color: var(--color-text);
 		transform: translateX(-3px);
 	}
 

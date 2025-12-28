@@ -39,7 +39,7 @@
 					disabled={playerCount <= 5}
 					aria-label="Diminuer"
 				>
-					−
+					-
 				</button>
 				<span class="counter-value">{playerCount}</span>
 				<button
@@ -53,7 +53,7 @@
 			</div>
 			{#if currentConfig}
 				<p class="config-info">
-					{$t.setup.mafiaVsPolice(currentConfig.mafiaCount, currentConfig.policeCount)}
+					{$t.setup.goodVsEvil(currentConfig.goodCount, currentConfig.evilCount)}
 				</p>
 			{/if}
 		</Card>
@@ -119,13 +119,13 @@
 
 			{#if showRoles}
 				<div class="roles-accordion">
-					<div class="role-card famiglia">
-						<span class="role-name">{$t.roles.taupe.name}</span>
-						<span class="role-desc">{$t.roles.taupe.description}</span>
+					<div class="role-card good">
+						<span class="role-name">{$t.roles.merlin.name}</span>
+						<span class="role-desc">{$t.roles.merlin.description}</span>
 					</div>
-					<div class="role-card police">
-						<span class="role-name">{$t.roles.enqueteur.name}</span>
-						<span class="role-desc">{$t.roles.enqueteur.description}</span>
+					<div class="role-card evil">
+						<span class="role-name">{$t.roles.assassin.name}</span>
+						<span class="role-desc">{$t.roles.assassin.description}</span>
 					</div>
 				</div>
 			{/if}
@@ -157,8 +157,9 @@
 
 	/* === TITLE === */
 	.title {
-		font-size: var(--text-2xl);
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: var(--text-3xl);
+		text-transform: uppercase;
 		text-align: center;
 		margin: 0 0 var(--spacing-sm) 0;
 		color: var(--color-text);
@@ -187,26 +188,28 @@
 	}
 
 	.counter-btn {
-		width: 56px;
-		height: 56px;
-		border: 2px solid var(--color-surface-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 88px;
+		height: 88px;
+		border: none;
 		border-radius: 50%;
 		background: transparent;
 		color: var(--color-text);
-		font-family: var(--font-family);
-		font-size: var(--text-2xl);
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: 5rem;
+		line-height: 1;
 		cursor: pointer;
 		transition:
-			border-color 150ms ease,
-			background-color 150ms ease,
+			color 150ms ease,
 			transform 150ms ease,
 			opacity 150ms ease;
 	}
 
 	.counter-btn:hover:not(:disabled) {
-		border-color: var(--color-accent);
-		transform: scale(1.05);
+		color: var(--color-accent);
+		transform: scale(1.1);
 	}
 
 	.counter-btn:active:not(:disabled) {
@@ -219,12 +222,12 @@
 	}
 
 	.counter-value {
-		font-size: 4rem;
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: 5rem;
 		color: var(--color-accent);
 		min-width: 80px;
 		text-align: center;
-		text-shadow: 0 0 20px rgba(233, 69, 96, 0.4);
+		text-shadow: 0 0 20px rgba(255, 109, 0, 0.4);
 	}
 
 	.config-info {
@@ -408,12 +411,12 @@
 		border-left: 3px solid;
 	}
 
-	.role-card.famiglia {
-		border-left-color: var(--color-famiglia);
+	.role-card.good {
+		border-left-color: var(--color-good);
 	}
 
-	.role-card.police {
-		border-left-color: var(--color-police);
+	.role-card.evil {
+		border-left-color: var(--color-evil);
 	}
 
 	.role-name {

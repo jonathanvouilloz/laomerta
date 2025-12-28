@@ -50,10 +50,10 @@
 
 	<!-- Vote Buttons -->
 	<div class="vote-buttons anim-slide-up" style="--delay: 300ms">
-		<CornerButton team="famiglia" size="small" onclick={() => onVote(true)}>
+		<CornerButton team="good" size="small" onclick={() => onVote(true)}>
 			{$t.teamVote.approve}
 		</CornerButton>
-		<CornerButton team="police" size="small" onclick={() => onVote(false)}>
+		<CornerButton team="evil" size="small" onclick={() => onVote(false)}>
 			{$t.teamVote.reject}
 		</CornerButton>
 	</div>

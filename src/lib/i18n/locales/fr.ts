@@ -2,94 +2,94 @@ import type { Translations } from '../types';
 
 export const fr: Translations = {
 	home: {
-		subtitle: 'La loi du silence',
-		playerCount: '5-10 joueurs',
-		singlePhone: 'Un seul téléphone pour tous',
-		newGame: 'Nouvelle partie',
+		subtitle: 'Plata o Plomo',
+		playerCount: '5-10 gangsters',
+		singlePhone: 'Un seul téléphone',
+		newGame: "Entrer dans l'île",
 		credits: 'Inspiré par The Resistance: Avalon'
 	},
 
 	setup: {
-		title: 'Configuration',
-		playerCountLabel: 'Nombre de joueurs',
-		mafiaVsPolice: (mafia, police) => `${mafia} Mafiosi vs ${police} Policiers`,
+		title: 'Briefing',
+		playerCountLabel: 'Trafiquants présents',
+		goodVsEvil: (good, evil) => `${good} Locaux vs ${evil} Infiltrés`,
 		playerNames: 'Noms des joueurs',
 		playerPlaceholder: (n) => `Joueur ${n}`,
-		specialRoles: 'Rôles spéciaux',
+		specialRoles: 'Spécialistes',
 		notAvailable: (count) => `Non disponible à ${count} joueurs`,
 		recommended: 'Recommandé',
 		optional: 'Optionnel',
 		showRoles: 'Voir les rôles',
 		hideRoles: 'Masquer les rôles',
-		startGame: 'Lancer la partie',
+		startGame: 'Lancer le business',
 		back: 'Retour'
 	},
 
 	missionBoard: {
-		famiglia: 'Famiglia',
-		flics: 'Flics',
-		teamLeader: "Chef d'équipe :",
+		good: 'Cartel',
+		evil: 'Policía',
+		teamLeader: 'El Jefe :',
 		consecutiveRejections: (count) => `${count}/5 refus consécutifs`
 	},
 
 	teamSelection: {
-		mission: (n) => `Mission ${n}`,
-		leaderChooses: (name, count) => `${name} choisit ${count} membres`,
+		mission: (n) => `Opération ${n}`,
+		leaderChooses: (name, count) => `El Jefe ${name} choisit ${count} hommes`,
 		requiredFailures: (count) =>
-			count === 2 ? '2 sabotages requis pour échouer' : '1 sabotage suffit pour échouer',
-		selected: (current, total) => `${current} / ${total} sélectionnés`,
-		proposeTeam: 'Proposer cette équipe'
+			count === 2 ? '2 flics requis pour saisir' : '1 flic suffit pour saisir la drogue',
+		recruited: 'recrutés',
+		proposeTeam: 'Proposer ce Crew'
 	},
 
 	teamVote: {
-		title: "Vote d'équipe",
-		proposedTeam: 'Équipe proposée :',
-		voteInstruction: "Votez à main levée. La majorité l'emporte.",
+		title: 'Conseil du Cartel',
+		proposedTeam: 'Le Crew proposé :',
+		voteInstruction: 'On valide ce plan ? Vote à main levée.',
 		rejectionWarning: (count) =>
-			`Attention : ${count}/5 refus. Au 5e refus, les Flics gagnent !`,
-		approve: 'Équipe acceptée',
-		reject: 'Équipe refusée'
+			`Attention : ${count}/5 refus. Au 5e refus, guerre des gangs !`,
+		approve: 'Validé (Sí)',
+		reject: 'Refusé (No)'
 	},
 
 	secretVote: {
-		instruction: 'Votre vote est secret. Que décidez-vous ?',
-		success: 'Réussite',
-		sabotage: 'Sabotage',
-		tip: "Astuce : Les Mafiosi peuvent saboter pour bluffer, mais c'est risqué !"
+		instruction: 'Tu livres ou tu balances aux flics ?',
+		success: 'Livrer (Plata)',
+		sabotage: 'Saisir (Plomo)',
+		tip: 'Les locaux peuvent saboter pour bluffer (risqué).'
 	},
 
 	roleReveal: {
-		policeAre: 'Les Policiers sont :',
-		policeAllies: 'Vos alliés Policiers :',
+		evilAre: 'Les Flics Infiltrés sont :',
+		evilAllies: 'Vos collègues corrompus :',
 		understood: "J'ai compris",
 		wait: (seconds) => `Attendez (${seconds}s)`
 	},
 
 	missionResult: {
-		success: 'Mission réussie !',
-		failure: 'Mission échouée',
-		successes: 'Réussites',
-		sabotages: 'Sabotages',
-		requiredTwo: 'Cette mission nécessitait 2 sabotages pour échouer',
+		success: 'Opération Réussie !',
+		failure: 'Opération Saisie !',
+		successes: 'Livraisons',
+		sabotages: 'Saisies',
+		requiredTwo: 'Cette opération nécessitait 2 saisies pour échouer',
 		continue: 'Continuer'
 	},
 
 	accusation: {
-		title: "Phase d'accusation",
+		title: "L'Interrogatoire",
 		mafiaWon:
-			"La Mafia a remporté 3 missions, mais L'Enquêteur peut encore retourner la situation !",
-		instruction: 'Les Policiers discutent et désignent qui ils pensent être',
-		whoIsMole: 'Qui est La Taupe ?',
-		accuse: 'Accuser ce joueur'
+			'Le Cartel a gagné, mais le Sniper est en position !',
+		instruction: 'Les flics discutent : Qui est la balance ?',
+		whoIsMole: "Qui est l'Informateur ?",
+		accuse: 'Tirer sur ce joueur'
 	},
 
 	gameEnd: {
 		victory: 'Victoire',
-		accusedPlayer: 'Joueur accusé :',
+		accusedPlayer: 'Cible abattue :',
 		roleReveal: 'Révélation des rôles',
 		recap: 'Récapitulatif',
-		missionSuccess: 'Réussie',
-		missionFailed: 'Échouée',
+		missionSuccess: 'Livrée',
+		missionFailed: 'Saisie',
 		newGame: 'Nouvelle partie',
 		returnHome: "Retour à l'accueil"
 	},
@@ -104,43 +104,43 @@ export const fr: Translations = {
 	},
 
 	roles: {
-		mafioso: {
-			name: 'Mafioso',
+		loyalist: {
+			name: 'El Soldado',
 			description:
-				"Membre loyal de La Famiglia. Faites réussir les missions pour gagner. Vous pouvez voter Sabotage pour bluffer, mais c'est risqué !"
+				'Trafiquant local cool. Assurez-vous que la marchandise passe pour gagner.'
 		},
-		taupe: {
-			name: 'La Taupe',
+		merlin: {
+			name: 'El Vigía',
 			description:
-				"Mafioso infiltré dans la police. Vous connaissez l'identité de tous les Policiers. Restez cachée jusqu'à la fin !"
+				"L'informateur. Vous connaissez les flics infiltrés, mais attention au Sniper."
 		},
-		policier: {
-			name: 'Policier',
+		spy: {
+			name: 'Infiltré',
 			description:
-				'Agent infiltré dans la Mafia. Sabotez les missions pour démanteler le réseau. Vous connaissez les autres Policiers.'
+				'Flic sous couverture. Sabotez les livraisons et faites tomber le réseau.'
 		},
-		enqueteur: {
-			name: "L'Enquêteur",
+		assassin: {
+			name: 'Le Sniper',
 			description:
-				'Policier spécial. Si la Mafia gagne 3 missions, vous aurez une chance de retourner la victoire en identifiant La Taupe !'
+				"Si le Cartel gagne 3 livraisons, abattez l'Informateur pour voler la victoire."
 		}
 	},
 
 	teams: {
-		famiglia: 'La Famiglia',
-		police: 'Les Flics'
+		good: 'El Cartel',
+		evil: 'La Policía'
 	},
 
 	winReasons: {
-		paralyzed: 'La Famiglia est paralysée par la méfiance (5 équipes refusées)',
-		operationsSuccess: 'Les opérations ont été un succès !',
-		networkDismantled: 'Le réseau a été démantelé !',
-		moleIdentified: "L'Enquêteur a identifié La Taupe !",
-		moleHidden: "L'Enquêteur s'est trompé ! La Taupe reste cachée."
+		paralyzed: "Guerre des gangs : Le Cartel s'est entretué (5 équipes refusées)",
+		operationsSuccess: 'La marchandise a été livrée. Le Cartel est riche !',
+		networkDismantled: 'Descente de police ! Le réseau est démantelé.',
+		moleIdentified: "Pan ! Le Sniper a abattu l'Informateur.",
+		moleHidden: "Tir manqué ! L'Informateur s'est fondu dans la foule."
 	},
 
 	meta: {
-		description: 'Jeu de déduction sociale pour 5-10 joueurs'
+		description: 'Jeu de bluff tropical et de corruption pour 5-10 joueurs'
 	},
 
 	settings: {
@@ -169,27 +169,27 @@ export const fr: Translations = {
 
 	pwa: {
 		install: 'Installer le jeu',
-		installTitle: 'Installer Omertà',
+		installTitle: 'Installer Isla Plomo',
 		step1: 'Appuyez sur le bouton Partager',
 		step2: "Sélectionnez « Sur l'écran d'accueil »",
 		understood: 'Compris'
 	},
 
 	nightPhase: {
-		title: 'Phase de nuit',
-		everyoneCloseEyes: 'Tout le monde ferme les yeux',
-		policeOpenEyes: 'Les Policiers ouvrent les yeux',
-		policeIdentify: 'Identifiez-vous entre vous',
-		policeCloseEyes: 'Les Policiers ferment les yeux',
-		policeThumbsUp: 'Les Policiers lèvent le pouce en l\'air',
-		moleOpenEyes: 'La Taupe ouvre les yeux',
-		moleSeePolice: 'Repérez les pouces levés - ce sont les Policiers',
-		moleCloseEyes: 'La Taupe ferme les yeux',
-		policeThumbsDown: 'Les Policiers baissent le pouce',
-		everyoneOpenEyes: 'Tout le monde ouvre les yeux',
-		gameCanStart: 'La partie peut commencer !',
+		title: 'Couvre-feu',
+		everyoneCloseEyes: 'Fermez les yeux. La nuit tombe sur Isla Plomo.',
+		evilOpenEyes: 'Les Flics Infiltrés ouvrent les yeux.',
+		evilIdentify: 'Regardez vos collègues corrompus.',
+		evilCloseEyes: 'Les Flics ferment les yeux.',
+		evilThumbsUp: 'Les Flics lèvent le pouce.',
+		merlinOpenEyes: "L'Informateur (El Vigía) ouvre les yeux.",
+		merlinSeeEvil: 'Mémorisez les visages des flics.',
+		merlinCloseEyes: "L'Informateur ferme les yeux.",
+		evilThumbsDown: 'Les Flics baissent le pouce.',
+		everyoneOpenEyes: 'Tout le monde ouvre les yeux.',
+		gameCanStart: 'Le business commence maintenant.',
 		next: 'Suivant',
-		startGame: 'Commencer la partie'
+		startGame: 'Commencer'
 	},
 
 	help: {
@@ -197,33 +197,33 @@ export const fr: Translations = {
 		close: 'Fermer',
 		objective: {
 			title: 'But du jeu',
-			famiglia: 'La Famiglia (Mafia) doit réussir 3 missions sur 5',
-			police: 'Les Flics infiltrés doivent saboter 3 missions'
+			good: 'El Cartel doit réussir 3 opérations sur 5',
+			evil: 'La Policía infiltrée doit saisir 3 opérations'
 		},
 		teams: {
 			title: 'Les équipes',
-			famigliaDesc: 'La Famiglia (gentils) : Mafiosi + La Taupe',
-			policeDesc: 'Les Flics (méchants) : Policiers + Enquêteur'
+			goodDesc: 'El Cartel (locaux) : Soldados + El Vigía',
+			evilDesc: 'La Policía (infiltrés) : Undercovers + Sniper'
 		},
 		rolesTitle: 'Les rôles',
 		rolesDesc: {
-			mafioso: 'Mafioso : Loyal à la famille, ne connaît personne',
-			taupe: 'La Taupe : Mafioso infiltré, connaît tous les Policiers',
-			policier: 'Policier : Agent infiltré, connaît les autres Policiers',
-			enqueteur: "L'Enquêteur : Peut identifier La Taupe si la Mafia gagne"
+			loyalist: 'El Soldado : Trafiquant loyal, ne connaît personne',
+			merlin: 'El Vigía : Informateur, connaît tous les flics',
+			spy: 'Infiltré : Flic sous couverture, connaît les autres flics',
+			assassin: "Le Sniper : Peut abattre l'Informateur si le Cartel gagne"
 		},
 		gameplay: {
-			title: "Déroulement d'une mission",
-			step1: 'Le chef propose une équipe',
-			step2: 'Vote à main levée (accepter/refuser)',
-			step3: 'Si acceptée : vote secret de mission',
-			step4: '1 sabotage = mission échouée (sauf Mission 4 à 7+ joueurs : 2 requis)'
+			title: "Déroulement d'une opération",
+			step1: 'El Jefe propose un crew',
+			step2: 'Vote à main levée (sí/no)',
+			step3: 'Si accepté : vote secret de mission',
+			step4: '1 saisie = opération échouée (sauf Opération 4 à 7+ joueurs : 2 requises)'
 		},
 		specialRules: {
 			title: 'Règles spéciales',
-			rule1: '5 refus consécutifs = victoire des Flics',
-			rule2: 'Les Mafiosi PEUVENT voter sabotage pour bluffer (risqué !)',
-			rule3: "Si la Mafia gagne avec rôles spéciaux, l'Enquêteur peut retourner la victoire en identifiant La Taupe"
+			rule1: '5 refus consécutifs = Guerre des gangs (victoire Police)',
+			rule2: 'Les locaux PEUVENT voter saisie pour bluffer (risqué !)',
+			rule3: "Si le Cartel gagne avec rôles spéciaux, le Sniper peut retourner la victoire en abattant l'Informateur"
 		}
 	}
 };

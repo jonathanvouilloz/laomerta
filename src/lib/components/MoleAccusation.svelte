@@ -13,8 +13,8 @@
 
 	let selectedId: string | null = $state(null);
 
-	// Filtrer pour n'afficher que les membres de La Famiglia (suspects potentiels)
-	const suspects = $derived(players.filter((p) => p.team === 'famiglia'));
+	// Filtrer pour n'afficher que les membres de l'équipe Good (suspects potentiels)
+	const suspects = $derived(players.filter((p) => p.team === 'good'));
 </script>
 
 <div class="accusation">
@@ -29,9 +29,9 @@
 
 	<!-- Instruction Card -->
 	<div class="section anim-fade-in" style="--delay: 100ms">
-		<Card variant="elevated" accent="police" padding="md">
+		<Card variant="elevated" accent="evil" padding="md">
 			<p class="instruction">
-				{$t.accusation.instruction} <strong class="highlight">{$t.roles.taupe.name}</strong>.
+				{$t.accusation.instruction} <strong class="highlight">{$t.roles.merlin.name}</strong>.
 			</p>
 		</Card>
 	</div>
@@ -67,7 +67,7 @@
 	<!-- Action -->
 	<div class="action anim-slide-up" style="--delay: 400ms">
 		<CornerButton
-			team="police"
+			team="evil"
 			disabled={!selectedId}
 			onclick={() => selectedId && onAccuse(selectedId)}
 		>

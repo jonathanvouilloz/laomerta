@@ -17,14 +17,14 @@
 
 	const baseSteps: Step[] = $derived([
 		{ icon: '😌', text: $t.nightPhase.everyoneCloseEyes },
-		{ icon: '👁️', text: $t.nightPhase.policeOpenEyes, subtext: $t.nightPhase.policeIdentify },
-		{ icon: '😌', text: $t.nightPhase.policeCloseEyes }
+		{ icon: '👁️', text: $t.nightPhase.evilOpenEyes, subtext: $t.nightPhase.evilIdentify },
+		{ icon: '😌', text: $t.nightPhase.evilCloseEyes }
 	]);
 
-	const moleSteps: Step[] = $derived([
-		{ icon: '👍', text: $t.nightPhase.policeThumbsUp },
-		{ icon: '👁️', text: $t.nightPhase.moleOpenEyes, subtext: $t.nightPhase.moleSeePolice },
-		{ icon: '😌', text: $t.nightPhase.moleCloseEyes, subtext: $t.nightPhase.policeThumbsDown }
+	const merlinSteps: Step[] = $derived([
+		{ icon: '👍', text: $t.nightPhase.evilThumbsUp },
+		{ icon: '👁️', text: $t.nightPhase.merlinOpenEyes, subtext: $t.nightPhase.merlinSeeEvil },
+		{ icon: '😌', text: $t.nightPhase.merlinCloseEyes, subtext: $t.nightPhase.evilThumbsDown }
 	]);
 
 	const finalStep: Step = $derived({
@@ -34,7 +34,7 @@
 	});
 
 	const steps: Step[] = $derived(
-		useSpecialRoles ? [...baseSteps, ...moleSteps, finalStep] : [...baseSteps, finalStep]
+		useSpecialRoles ? [...baseSteps, ...merlinSteps, finalStep] : [...baseSteps, finalStep]
 	);
 
 	let currentStep = $state(0);
@@ -190,7 +190,7 @@
 	}
 
 	.dot.completed {
-		background: var(--color-famiglia);
+		background: var(--color-good);
 	}
 
 	/* === STEP CONTENT === */

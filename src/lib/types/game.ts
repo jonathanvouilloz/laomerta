@@ -1,10 +1,10 @@
 import type { WinReasonKey } from '$lib/i18n/types';
 
 // Camps
-export type Team = 'famiglia' | 'police';
+export type Team = 'good' | 'evil';
 
 // Rôles disponibles
-export type Role = 'mafioso' | 'taupe' | 'policier' | 'enqueteur';
+export type Role = 'loyalist' | 'merlin' | 'spy' | 'assassin';
 
 // Phases du jeu
 export type GamePhase =
@@ -56,8 +56,8 @@ export interface GameState {
 	currentPlayerIndex: number; // Pour la distribution et votes secrets
 	missions: Mission[];
 	currentMissionIndex: number;
-	mafiaScore: number;
-	policeScore: number;
+	goodScore: number;
+	evilScore: number;
 	consecutiveRejections: number;
 	accusedPlayerId: string | null;
 	winner: Team | null;
@@ -67,8 +67,8 @@ export interface GameState {
 // Configuration des missions par nombre de joueurs
 export interface MissionConfig {
 	teamSizes: number[];
-	mafiaCount: number;
-	policeCount: number;
+	goodCount: number;
+	evilCount: number;
 	specialRolesAvailable: boolean;
 	specialRolesRecommended: boolean;
 }

@@ -75,7 +75,7 @@
 					<CornerButton team="neutral" size="small" onclick={cancelRestart}>
 						{$t.settings.cancel}
 					</CornerButton>
-					<CornerButton team="police" size="small" onclick={confirmRestart}>
+					<CornerButton team="evil" size="small" onclick={confirmRestart}>
 						{$t.settings.confirm}
 					</CornerButton>
 				</div>

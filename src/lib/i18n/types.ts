@@ -19,7 +19,7 @@ export interface Translations {
 	setup: {
 		title: string;
 		playerCountLabel: string;
-		mafiaVsPolice: (mafia: number, police: number) => string;
+		goodVsEvil: (good: number, evil: number) => string;
 		playerNames: string;
 		playerPlaceholder: (n: number) => string;
 		specialRoles: string;
@@ -34,8 +34,8 @@ export interface Translations {
 
 	// Mission Board
 	missionBoard: {
-		famiglia: string;
-		flics: string;
+		good: string;
+		evil: string;
 		teamLeader: string;
 		consecutiveRejections: (count: number) => string;
 	};
@@ -45,7 +45,7 @@ export interface Translations {
 		mission: (n: number) => string;
 		leaderChooses: (name: string, count: number) => string;
 		requiredFailures: (count: number) => string;
-		selected: (current: number, total: number) => string;
+		recruited: string;
 		proposeTeam: string;
 	};
 
@@ -69,8 +69,8 @@ export interface Translations {
 
 	// Role Reveal
 	roleReveal: {
-		policeAre: string;
-		policeAllies: string;
+		evilAre: string;
+		evilAllies: string;
 		understood: string;
 		wait: (seconds: number) => string;
 	};
@@ -118,16 +118,16 @@ export interface Translations {
 
 	// Roles
 	roles: {
-		mafioso: RoleTranslation;
-		taupe: RoleTranslation;
-		policier: RoleTranslation;
-		enqueteur: RoleTranslation;
+		loyalist: RoleTranslation;
+		merlin: RoleTranslation;
+		spy: RoleTranslation;
+		assassin: RoleTranslation;
 	};
 
 	// Teams
 	teams: {
-		famiglia: string;
-		police: string;
+		good: string;
+		evil: string;
 	};
 
 	// Win Reasons (keys used by gameStore)
@@ -174,14 +174,14 @@ export interface Translations {
 	nightPhase: {
 		title: string;
 		everyoneCloseEyes: string;
-		policeOpenEyes: string;
-		policeIdentify: string;
-		policeCloseEyes: string;
-		policeThumbsUp: string;
-		moleOpenEyes: string;
-		moleSeePolice: string;
-		moleCloseEyes: string;
-		policeThumbsDown: string;
+		evilOpenEyes: string;
+		evilIdentify: string;
+		evilCloseEyes: string;
+		evilThumbsUp: string;
+		merlinOpenEyes: string;
+		merlinSeeEvil: string;
+		merlinCloseEyes: string;
+		evilThumbsDown: string;
 		everyoneOpenEyes: string;
 		gameCanStart: string;
 		next: string;
@@ -203,20 +203,20 @@ export interface Translations {
 		close: string;
 		objective: {
 			title: string;
-			famiglia: string;
-			police: string;
+			good: string;
+			evil: string;
 		};
 		teams: {
 			title: string;
-			famigliaDesc: string;
-			policeDesc: string;
+			goodDesc: string;
+			evilDesc: string;
 		};
 		rolesTitle: string;
 		rolesDesc: {
-			mafioso: string;
-			taupe: string;
-			policier: string;
-			enqueteur: string;
+			loyalist: string;
+			merlin: string;
+			spy: string;
+			assassin: string;
 		};
 		gameplay: {
 			title: string;

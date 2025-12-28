@@ -44,26 +44,26 @@
 			<section class="help-section">
 				<h3 class="section-title">{$t.help.objective.title}</h3>
 				<ul class="help-list">
-					<li class="text-famiglia">{$t.help.objective.famiglia}</li>
-					<li class="text-police">{$t.help.objective.police}</li>
+					<li class="text-good">{$t.help.objective.good}</li>
+					<li class="text-evil">{$t.help.objective.evil}</li>
 				</ul>
 			</section>
 
 			<section class="help-section">
 				<h3 class="section-title">{$t.help.teams.title}</h3>
 				<ul class="help-list">
-					<li class="text-famiglia">{$t.help.teams.famigliaDesc}</li>
-					<li class="text-police">{$t.help.teams.policeDesc}</li>
+					<li class="text-good">{$t.help.teams.goodDesc}</li>
+					<li class="text-evil">{$t.help.teams.evilDesc}</li>
 				</ul>
 			</section>
 
 			<section class="help-section">
 				<h3 class="section-title">{$t.help.rolesTitle}</h3>
 				<ul class="help-list roles-list">
-					<li>{$t.help.rolesDesc.mafioso}</li>
-					<li>{$t.help.rolesDesc.taupe}</li>
-					<li>{$t.help.rolesDesc.policier}</li>
-					<li>{$t.help.rolesDesc.enqueteur}</li>
+					<li>{$t.help.rolesDesc.loyalist}</li>
+					<li>{$t.help.rolesDesc.merlin}</li>
+					<li>{$t.help.rolesDesc.spy}</li>
+					<li>{$t.help.rolesDesc.assassin}</li>
 				</ul>
 			</section>
 
@@ -225,22 +225,22 @@
 		top: 0.25em;
 	}
 
-	.help-list li.text-famiglia::before {
-		background-color: var(--color-famiglia);
+	.help-list li.text-good::before {
+		background-color: var(--color-good);
 	}
 
-	.help-list li.text-police::before {
-		background-color: var(--color-police);
+	.help-list li.text-evil::before {
+		background-color: var(--color-evil);
 	}
 
 	.help-list.roles-list li:nth-child(1)::before,
 	.help-list.roles-list li:nth-child(2)::before {
-		background-color: var(--color-famiglia);
+		background-color: var(--color-good);
 	}
 
 	.help-list.roles-list li:nth-child(3)::before,
 	.help-list.roles-list li:nth-child(4)::before {
-		background-color: var(--color-police);
+		background-color: var(--color-evil);
 	}
 
 	.help-list.special-rules li.highlight {
@@ -256,11 +256,11 @@
 		padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
 	}
 
-	.text-famiglia {
-		color: var(--color-famiglia);
+	.text-good {
+		color: var(--color-good);
 	}
 
-	.text-police {
-		color: var(--color-police);
+	.text-evil {
+		color: var(--color-evil);
 	}
 </style>

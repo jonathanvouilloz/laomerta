@@ -3,7 +3,7 @@
 
 	interface Props {
 		variant?: 'default' | 'elevated' | 'interactive';
-		accent?: 'none' | 'famiglia' | 'police';
+		accent?: 'none' | 'good' | 'evil';
 		accentPosition?: 'left' | 'top';
 		padding?: 'sm' | 'md' | 'lg';
 		children: Snippet;
@@ -20,8 +20,8 @@
 
 <div
 	class="card card-{variant} card-padding-{padding}"
-	class:card-accent-famiglia={accent === 'famiglia'}
-	class:card-accent-police={accent === 'police'}
+	class:card-accent-good={accent === 'good'}
+	class:card-accent-evil={accent === 'evil'}
 	class:card-accent-top={accentPosition === 'top'}
 >
 	<!-- Subtle inner glow for accent variants -->
@@ -124,9 +124,9 @@
 			inset 0 1px 0 rgba(255, 255, 255, 0.03);
 	}
 
-	/* === ACCENT: FAMIGLIA (Green - The Family) === */
-	.card-accent-famiglia {
-		--card-accent-color: var(--color-famiglia);
+	/* === ACCENT: GOOD (Green - The Good Team) === */
+	.card-accent-good {
+		--card-accent-color: var(--color-good);
 		--card-accent-glow: rgba(78, 204, 163, 0.15);
 
 		border-left: 4px solid var(--card-accent-color);
@@ -134,17 +134,17 @@
 		border-bottom-left-radius: var(--radius-lg);
 	}
 
-	.card-accent-famiglia:hover {
-		border-left-color: var(--color-famiglia);
+	.card-accent-good:hover {
+		border-left-color: var(--color-good);
 		box-shadow:
 			var(--shadow-md),
 			-4px 0 20px rgba(78, 204, 163, 0.2),
 			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	/* === ACCENT: POLICE (Red - The Enemy) === */
-	.card-accent-police {
-		--card-accent-color: var(--color-police);
+	/* === ACCENT: EVIL (Red - The Evil Team) === */
+	.card-accent-evil {
+		--card-accent-color: var(--color-evil);
 		--card-accent-glow: rgba(233, 69, 96, 0.15);
 
 		border-left: 4px solid var(--card-accent-color);
@@ -152,8 +152,8 @@
 		border-bottom-left-radius: var(--radius-lg);
 	}
 
-	.card-accent-police:hover {
-		border-left-color: var(--color-police);
+	.card-accent-evil:hover {
+		border-left-color: var(--color-evil);
 		box-shadow:
 			var(--shadow-md),
 			-4px 0 20px rgba(233, 69, 96, 0.2),
@@ -182,25 +182,25 @@
 	}
 
 	/* Combined interactive + accent states */
-	.card-interactive.card-accent-famiglia:hover {
+	.card-interactive.card-accent-good:hover {
 		border-color: var(--color-border-active);
-		border-left-color: var(--color-famiglia);
+		border-left-color: var(--color-good);
 	}
 
-	.card-interactive.card-accent-police:hover {
+	.card-interactive.card-accent-evil:hover {
 		border-color: var(--color-border-active);
-		border-left-color: var(--color-police);
+		border-left-color: var(--color-evil);
 	}
 
 	/* === ACCENT POSITION: TOP === */
-	.card-accent-top.card-accent-famiglia {
+	.card-accent-top.card-accent-good {
 		border-left: 1px solid var(--color-border);
-		border-top: 4px solid var(--color-famiglia);
+		border-top: 4px solid var(--color-good);
 	}
 
-	.card-accent-top.card-accent-police {
+	.card-accent-top.card-accent-evil {
 		border-left: 1px solid var(--color-border);
-		border-top: 4px solid var(--color-police);
+		border-top: 4px solid var(--color-evil);
 	}
 
 	.card-accent-top .card-accent-glow {
@@ -213,16 +213,16 @@
 		);
 	}
 
-	.card-accent-top.card-accent-famiglia:hover {
-		border-top-color: var(--color-famiglia);
+	.card-accent-top.card-accent-good:hover {
+		border-top-color: var(--color-good);
 		box-shadow:
 			var(--shadow-md),
 			0 -4px 20px rgba(78, 204, 163, 0.2),
 			inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
-	.card-accent-top.card-accent-police:hover {
-		border-top-color: var(--color-police);
+	.card-accent-top.card-accent-evil:hover {
+		border-top-color: var(--color-evil);
 		box-shadow:
 			var(--shadow-md),
 			0 -4px 20px rgba(233, 69, 96, 0.2),

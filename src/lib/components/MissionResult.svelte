@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Mission } from '$lib/types/game';
 	import { t } from '$lib/i18n';
-	import CornerButton from '$lib/components/ui/CornerButton.svelte';
+	import TextButton from '$lib/components/ui/TextButton.svelte';
 
 	interface Props {
 		mission: Mission;
@@ -23,9 +23,9 @@
 		<!-- Large result image -->
 		<div class="image-container anim-scale-in">
 			{#if success}
-				<img src="/omerta/icon-success.png" alt="Succès" class="result-image" />
+				<img src="/omerta/icon-success.webp" alt="Succès" class="result-image" />
 			{:else}
-				<img src="/omerta/icon-failure.png" alt="Échec" class="result-image" />
+				<img src="/omerta/icon-failure.webp" alt="Échec" class="result-image" />
 			{/if}
 		</div>
 
@@ -57,9 +57,9 @@
 
 	<!-- Continue button -->
 	<div class="action-section anim-slide-up" style="--delay: 500ms">
-		<CornerButton team="neutral" onclick={onContinue}>
+		<TextButton onclick={onContinue}>
 			{$t.missionResult.continue}
-		</CornerButton>
+		</TextButton>
 	</div>
 </div>
 
@@ -130,7 +130,7 @@
 
 	/* === TITLE === */
 	.result-title {
-		font-family: var(--font-family);
+		font-family: var(--font-display);
 		font-size: var(--text-3xl);
 		font-weight: var(--font-weight-extrabold);
 		color: var(--result-color);

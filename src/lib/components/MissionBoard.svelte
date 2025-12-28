@@ -3,22 +3,22 @@
 	import { t } from '$lib/i18n';
 	import Card from '$lib/components/ui/Card.svelte';
 
-	let { mafiaScore, policeScore, missions, consecutiveRejections } = $derived($gameStore);
+	let { goodScore, evilScore, missions, consecutiveRejections } = $derived($gameStore);
 </script>
 
 <div class="board">
 	<!-- Scores - Hors de la Card -->
 	<div class="scores">
-		<div class="score-icon">
-			<img src="/omerta/icon-famiglia.png" alt="Famiglia" />
-			<span class="score-value">{mafiaScore}</span>
+		<div class="score-icon score-icon-good">
+			<img src="/omerta/icon-good.webp" alt="Good" />
+			<span class="score-value">{goodScore}</span>
 		</div>
 		<div class="vs">
 			<span class="vs-text">VS</span>
 		</div>
-		<div class="score-icon">
-			<img src="/omerta/icon-police.png" alt="Police" />
-			<span class="score-value">{policeScore}</span>
+		<div class="score-icon score-icon-bad">
+			<img src="/omerta/icon-bad.webp" alt="Evil" />
+			<span class="score-value">{evilScore}</span>
 		</div>
 	</div>
 
@@ -34,9 +34,18 @@
 					class:dot-current={!mission.result.completed && i === $gameStore.currentMissionIndex}
 					class:dot-pending={!mission.result.completed && i !== $gameStore.currentMissionIndex}
 				>
-					<span class="mission-size">{mission.teamSize}</span>
-					{#if mission.requiredFailures === 2}
-						<span class="mission-special">!</span>
+					{#if mission.result.completed}
+						<img
+							src="/omerta/{mission.result.success ? 'icon-good' : 'icon-bad'}.webp"
+							alt=""
+							class="mission-result-icon"
+						/>
+						<span class="mission-size-below">{mission.teamSize}</span>
+					{:else}
+						<span class="mission-size">{mission.teamSize}</span>
+						{#if mission.requiredFailures === 2}
+							<span class="mission-special">!</span>
+						{/if}
 					{/if}
 				</div>
 			{/each}
@@ -70,33 +79,30 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--spacing-md);
+		gap: var(--spacing-lg);
 		width: 100%;
 		margin-bottom: var(--spacing-lg);
 	}
 
 	.score-icon {
-		position: relative;
-		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-xs);
 	}
 
 	.score-icon img {
-		width: 100%;
+		width: 6rem;
 		height: auto;
 		display: block;
-		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
 	}
 
 	.score-value {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: var(--text-3xl);
+		font-family: var(--font-display);
+		font-size: var(--text-2xl);
 		font-weight: var(--font-weight-extrabold);
 		color: var(--color-text);
-		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 	}
 
 	.vs {
@@ -107,26 +113,26 @@
 	}
 
 	.vs-text {
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: var(--text-3xl);
 		color: var(--color-text-muted);
-		letter-spacing: 0.1em;
 	}
 
 	/* === MISSIONS === */
 	.missions {
 		display: flex;
 		justify-content: center;
-		gap: var(--spacing-sm);
+		gap: var(--spacing-md);
 		margin-bottom: var(--spacing-lg);
 	}
 
 	.mission-dot {
 		position: relative;
-		width: 2.75rem;
-		height: 2.75rem;
+		width: 4rem;
+		min-height: 4rem;
 		border-radius: var(--radius-full);
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		font-weight: var(--font-weight-semibold);
@@ -135,24 +141,22 @@
 	}
 
 	.dot-pending {
+		width: 3.75rem;
+		min-height: 3.75rem;
 		background: var(--color-surface-light);
 		color: var(--color-text-muted);
 		border: 2px solid var(--color-border);
 	}
 
-	.dot-success {
-		background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
-		color: var(--color-bg);
-		box-shadow: 0 0 12px rgba(78, 204, 163, 0.4);
-	}
-
+	.dot-success,
 	.dot-fail {
-		background: linear-gradient(135deg, var(--color-danger) 0%, var(--color-accent-dark) 100%);
+		background: transparent;
 		color: var(--color-text);
-		box-shadow: 0 0 12px rgba(233, 69, 96, 0.4);
 	}
 
 	.dot-current {
+		width: 3.75rem;
+		min-height: 3.75rem;
 		background: var(--color-warning);
 		color: var(--color-bg);
 		animation: currentPulse 2s ease-in-out infinite;
@@ -185,6 +189,18 @@
 		align-items: center;
 		justify-content: center;
 		box-shadow: var(--shadow-sm);
+	}
+
+	.mission-result-icon {
+		width: 5rem;
+		height: auto;
+		border-radius: var(--radius-sm);
+	}
+
+	.mission-size-below {
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-bold);
+		margin-top: 0.125rem;
 	}
 
 	/* === DIVIDER === */

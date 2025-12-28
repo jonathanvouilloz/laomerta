@@ -1,13 +1,13 @@
 {
-	"name": "Omertà",
-	"short_name": "Omertà",
-	"description": "Jeu de déduction sociale pour 5-10 joueurs",
+	"name": "Isla Plomo",
+	"short_name": "Isla Plomo",
+	"description": "Jeu de bluff tropical et de corruption pour 5-10 joueurs",
 	"start_url": "/",
 	"id": "/",
 	"scope": "/",
 	"display": "standalone",
-	"background_color": "#1a1a2e",
-	"theme_color": "#1a1a2e",
+	"background_color": "#1a1025",
+	"theme_color": "#1a1025",
 	"orientation": "portrait",
 	"icons": [
 		{

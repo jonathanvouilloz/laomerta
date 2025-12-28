@@ -2,7 +2,7 @@
 	import type { Player, Role } from '$lib/types/game';
 	import { getRoleInfo, getTeamName } from '$lib/utils/roles';
 	import { t } from '$lib/i18n';
-	import CornerButton from '$lib/components/ui/CornerButton.svelte';
+	import TextButton from '$lib/components/ui/TextButton.svelte';
 
 	interface Props {
 		player: Player;
@@ -15,56 +15,48 @@
 	const roleInfo = $derived(getRoleInfo(player, allPlayers, $t));
 
 	const roleImages: Record<Role, string> = {
-		mafioso: '/omerta/the-mafioso.png',
-		policier: '/omerta/the-detective.png',
-		enqueteur: '/omerta/the-investigator.png',
-		taupe: '/omerta/the-mole.png'
+		loyalist: '/omerta/the-loyalist.webp',
+		spy: '/omerta/the-spy.webp',
+		assassin: '/omerta/the-assassin.webp',
+		merlin: '/omerta/the-mole.webp'
 	};
 
 	const roleImage = $derived(roleInfo?.role ? roleImages[roleInfo.role] : '');
 </script>
 
-<div class="secret-vote" class:famiglia={roleInfo.team === 'famiglia'} class:police={roleInfo.team === 'police'}>
+<div class="secret-vote" class:good={roleInfo.team === 'good'} class:evil={roleInfo.team === 'evil'}>
 	<!-- Background image -->
 	<div class="bg-image" style="background-image: url({roleImage})"></div>
 	<div class="overlay"></div>
 
-	<!-- Content at bottom -->
+	<!-- Team Badge (top-left) -->
+	<div class="team-badge anim-fade-in" style="--delay: 100ms">
+		{getTeamName(roleInfo.team, $t)}
+	</div>
+
+	<!-- Content -->
 	<div class="content">
-		<div class="text-banner anim-fade-in">
-			<!-- Team Badge -->
-			<div class="team-badge">
-				<span class="team-indicator"></span>
-				<span class="team-text">{getTeamName(roleInfo.team, $t)}</span>
-			</div>
-
-			<!-- Role Name -->
+		<!-- Role Banner (tilted) -->
+		<div class="role-banner anim-scale-in" style="--delay: 200ms">
 			<h1 class="role-name">{roleInfo.name}</h1>
-
-			<!-- Instruction -->
-			<p class="instruction">{$t.secretVote.instruction}</p>
 		</div>
 	</div>
 
 	<!-- Action Section -->
-	<div class="action-section anim-slide-up" style="--delay: 200ms">
-		<CornerButton team="famiglia" size="small" onclick={() => onVote(true)}>
+	<div class="action-section anim-slide-up" style="--delay: 300ms">
+		<TextButton variant="success" size="small" onclick={() => onVote(true)}>
 			{$t.secretVote.success}
-		</CornerButton>
-		<div class="button-gap"></div>
-		<CornerButton team="police" size="small" onclick={() => onVote(false)}>
+		</TextButton>
+		<TextButton variant="danger" size="small" onclick={() => onVote(false)}>
 			{$t.secretVote.sabotage}
-		</CornerButton>
-
-		<!-- Tip -->
-		<p class="tip">{$t.secretVote.tip}</p>
+		</TextButton>
 	</div>
 </div>
 
 <style>
 	.secret-vote {
 		--accent-color: var(--color-accent);
-		--accent-glow: rgba(233, 69, 96, 0.4);
+		--accent-glow: rgba(255, 109, 0, 0.4);
 
 		position: fixed;
 		inset: 0;
@@ -74,14 +66,14 @@
 		z-index: 10;
 	}
 
-	.secret-vote.famiglia {
-		--accent-color: var(--color-famiglia);
-		--accent-glow: rgba(78, 204, 163, 0.4);
+	.secret-vote.good {
+		--accent-color: var(--color-good);
+		--accent-glow: rgba(255, 109, 0, 0.4);
 	}
 
-	.secret-vote.police {
-		--accent-color: var(--color-police);
-		--accent-glow: rgba(233, 69, 96, 0.4);
+	.secret-vote.evil {
+		--accent-color: var(--color-evil);
+		--accent-glow: rgba(0, 146, 255, 0.4);
 	}
 
 	/* === BACKGROUND IMAGE === */
@@ -93,20 +85,21 @@
 		z-index: 0;
 	}
 
-	/* === OVERLAY === */
+	/* === OVERLAY (gradient from bottom) === */
 	.overlay {
 		position: fixed;
 		inset: 0;
 		background: linear-gradient(
-			to bottom,
-			rgba(10, 10, 10, 0.1) 0%,
-			rgba(10, 10, 10, 0.3) 50%,
-			rgba(10, 10, 10, 0.6) 100%
+			to top,
+			rgba(0, 0, 0, 0.9) 0%,
+			rgba(0, 0, 0, 0.6) 25%,
+			rgba(0, 0, 0, 0.2) 50%,
+			transparent 75%
 		);
 		z-index: 1;
 	}
 
-	/* === CONTENT (at bottom) === */
+	/* === CONTENT === */
 	.content {
 		position: relative;
 		z-index: 2;
@@ -115,102 +108,77 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-end;
-		padding: 0;
+		padding: 0 var(--spacing-lg);
+		padding-bottom: var(--spacing-lg);
 		text-align: center;
 	}
 
-	/* === TEXT BANNER === */
-	.text-banner {
-		width: 100%;
-		padding: var(--spacing-xl) var(--spacing-lg);
-		background: rgba(0, 0, 0, 0.25);
-		backdrop-filter: blur(8px);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	/* === TEAM BADGE === */
+	/* === TEAM BADGE (top-left, tilted) === */
 	.team-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--spacing-sm);
+		position: fixed;
+		top: var(--spacing-lg);
+		left: var(--spacing-lg);
+		z-index: 10;
 		padding: var(--spacing-xs) var(--spacing-md);
-		background: rgba(0, 0, 0, 0.4);
-		border-radius: var(--radius-full);
-		margin-bottom: var(--spacing-md);
-		backdrop-filter: blur(8px);
-	}
-
-	.team-indicator {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--accent-color);
-		border: 2px solid var(--accent-color);
-		box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
-		animation: indicatorPulse 2s ease-in-out infinite;
-	}
-
-	@keyframes indicatorPulse {
-		0%, 100% { box-shadow: 0 0 10px var(--accent-color); }
-		50% { box-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-color); }
-	}
-
-	.team-text {
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-semibold);
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
+		background: rgba(0, 0, 0, 0.9);
+		font-family: var(--font-display);
+		font-size: var(--text-base);
 		color: var(--accent-color);
+		text-transform: uppercase;
+		transform: rotate(-2deg);
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+	}
+
+	/* === ROLE BANNER (tilted black strip) === */
+	.role-banner {
+		width: 120%;
+		margin-left: -10%;
+		padding: var(--spacing-lg) var(--spacing-xl);
+		background: rgba(0, 0, 0, 0.95);
+		transform: rotate(-3deg);
+		margin-bottom: var(--spacing-xl);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 	}
 
 	/* === ROLE NAME === */
 	.role-name {
-		font-family: var(--font-family);
-		font-size: var(--text-3xl);
-		font-weight: var(--font-weight-extrabold);
-		color: var(--color-text);
-		margin: 0 0 var(--spacing-md) 0;
-		letter-spacing: 0.02em;
-		text-shadow:
-			0 2px 8px rgba(0, 0, 0, 0.5),
-			0 0 60px var(--accent-glow);
-	}
-
-	/* === INSTRUCTION === */
-	.instruction {
-		font-size: var(--text-base);
-		color: var(--color-text-muted);
-		line-height: 1.6;
+		font-family: var(--font-display);
+		font-size: 3rem;
+		color: var(--accent-color);
 		margin: 0;
-		max-width: 320px;
+		text-transform: uppercase;
+		transform: rotate(1deg);
+		text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 	}
 
 	/* === ACTION SECTION === */
 	.action-section {
 		position: relative;
 		z-index: 2;
-		padding: var(--spacing-lg);
-		padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
-	}
-
-	.button-gap {
-		height: var(--spacing-md);
-	}
-
-	/* === TIP === */
-	.tip {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 3rem;
+		padding: var(--spacing-md) var(--spacing-lg);
+		padding-bottom: calc(4rem + env(safe-area-inset-bottom));
 		text-align: center;
-		font-size: var(--text-xs);
-		color: var(--color-text-muted);
-		margin: var(--spacing-lg) 0 0 0;
-		opacity: 0.7;
-		line-height: 1.5;
 	}
 
 	/* === ANIMATIONS === */
+	.anim-scale-in {
+		animation: scaleIn 600ms var(--ease-out-expo) forwards;
+		animation-delay: var(--delay, 0ms);
+		opacity: 0;
+		transform: scale(0.9) rotate(-3deg);
+	}
+
+	@keyframes scaleIn {
+		to {
+			opacity: 1;
+			transform: scale(1) rotate(-3deg);
+		}
+	}
+
 	.anim-slide-up {
 		animation: slideUp 500ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);

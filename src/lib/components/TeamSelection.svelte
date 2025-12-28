@@ -2,7 +2,6 @@
 	import type { Player, Mission } from '$lib/types/game';
 	import { t } from '$lib/i18n';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
 
 	interface Props {
 		players: Player[];
@@ -52,14 +51,12 @@
 
 	<!-- Counter -->
 	<div class="counter-section anim-fade-in" class:complete={canSubmit} style="--delay: 200ms">
-		<Card variant="default" padding="md">
-			<div class="counter">
-				<span class="counter-current" class:complete={canSubmit}>{selectedIds.length}</span>
-				<span class="counter-separator">/</span>
-				<span class="counter-total">{mission.teamSize}</span>
-				<span class="counter-label">{$t.teamSelection.selected(selectedIds.length, mission.teamSize).split(' ').slice(-1)[0]}</span>
-			</div>
-		</Card>
+		<div class="counter">
+			<span class="counter-current" class:complete={canSubmit}>{selectedIds.length}</span>
+			<span class="counter-separator">/</span>
+			<span class="counter-total">{mission.teamSize}</span>
+			<span class="counter-label">{$t.teamSelection.recruited}</span>
+		</div>
 	</div>
 
 	<!-- Submit Button -->
@@ -84,8 +81,9 @@
 	}
 
 	.title {
-		font-size: var(--text-2xl);
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: var(--text-4xl);
+		text-transform: uppercase;
 		margin: 0 0 var(--spacing-xs) 0;
 	}
 
@@ -160,18 +158,6 @@
 	/* === COUNTER === */
 	.counter-section {
 		margin-bottom: var(--spacing-lg);
-		border-radius: var(--radius-lg);
-		border: 1px solid transparent;
-		transition: border-color 200ms ease, box-shadow 200ms ease;
-	}
-
-	.counter-section.complete {
-		border-color: var(--color-success);
-		box-shadow: var(--glow-success);
-	}
-
-	.counter-section.complete :global(.card) {
-		border-color: transparent;
 	}
 
 	.counter {
@@ -182,8 +168,8 @@
 	}
 
 	.counter-current {
-		font-size: var(--text-3xl);
-		font-weight: var(--font-weight-extrabold);
+		font-family: var(--font-display);
+		font-size: 3.5rem;
 		color: var(--color-text-muted);
 		transition: color 200ms ease;
 	}
@@ -193,13 +179,14 @@
 	}
 
 	.counter-separator {
-		font-size: var(--text-xl);
+		font-family: var(--font-display);
+		font-size: var(--text-4xl);
 		color: var(--color-text-muted);
 	}
 
 	.counter-total {
-		font-size: var(--text-xl);
-		font-weight: var(--font-weight-bold);
+		font-family: var(--font-display);
+		font-size: var(--text-4xl);
 		color: var(--color-text);
 	}
 

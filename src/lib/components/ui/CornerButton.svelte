@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		team?: 'famiglia' | 'police' | 'neutral';
+		team?: 'good' | 'evil' | 'neutral';
 		size?: 'normal' | 'small';
 		disabled?: boolean;
 		onclick?: (event: MouseEvent) => void;
@@ -13,29 +13,23 @@
 </script>
 
 <button
-	class="corner-btn"
-	class:famiglia={team === 'famiglia'}
-	class:police={team === 'police'}
+	class="basic-btn"
+	class:good={team === 'good'}
+	class:evil={team === 'evil'}
 	class:neutral={team === 'neutral'}
 	class:small={size === 'small'}
 	{disabled}
 	{onclick}
 >
-	<span class="corner corner-tl"></span>
-	<span class="corner corner-tr"></span>
-	<span class="corner corner-bl"></span>
-	<span class="corner corner-br"></span>
 	<span class="btn-text">
 		{@render children()}
 	</span>
 </button>
 
 <style>
-	.corner-btn {
-		--corner-color: var(--color-police);
-		--bg-color: rgba(233, 69, 96, 0.15);
-		--corner-size: 14px;
-		--corner-thickness: 2px;
+	.basic-btn {
+		--btn-color: var(--color-accent);
+		--bg-color: rgba(255, 109, 0, 0.1);
 
 		position: relative;
 		display: flex;
@@ -44,7 +38,7 @@
 		width: 100%;
 		padding: 1.25rem 2.5rem;
 		background: var(--bg-color);
-		border: none;
+		border: 1px solid var(--btn-color);
 		color: var(--color-text);
 		font-family: var(--font-family);
 		font-size: var(--text-2xl);
@@ -55,60 +49,26 @@
 		transition: all 200ms ease;
 	}
 
-	.corner-btn.famiglia {
-		--corner-color: var(--color-famiglia);
-		--bg-color: rgba(78, 204, 163, 0.15);
+	.basic-btn.good {
+		--btn-color: var(--color-good);
+		--bg-color: rgba(0, 230, 118, 0.1);
 	}
 
-	.corner-btn.police {
-		--corner-color: var(--color-police);
-		--bg-color: rgba(233, 69, 96, 0.15);
+	.basic-btn.evil {
+		--btn-color: var(--color-danger);
+		--bg-color: rgba(255, 23, 68, 0.1);
 	}
 
-	.corner-btn.neutral {
-		--corner-color: rgba(255, 255, 255, 0.7);
-		--bg-color: rgba(255, 255, 255, 0.12);
+	.basic-btn.neutral {
+		--btn-color: rgba(255, 255, 255, 0.5);
+		--bg-color: rgba(255, 255, 255, 0.08);
 	}
 
 	/* Size variants */
-	.corner-btn.small {
+	.basic-btn.small {
 		padding: 1rem 2rem;
 		font-size: var(--text-lg);
 		letter-spacing: 0.15em;
-	}
-
-	/* Corners */
-	.corner {
-		position: absolute;
-		width: var(--corner-size);
-		height: var(--corner-size);
-		border-color: var(--corner-color);
-		border-style: solid;
-		transition: all 200ms ease;
-	}
-
-	.corner-tl {
-		top: 0;
-		left: 0;
-		border-width: var(--corner-thickness) 0 0 var(--corner-thickness);
-	}
-
-	.corner-tr {
-		top: 0;
-		right: 0;
-		border-width: var(--corner-thickness) var(--corner-thickness) 0 0;
-	}
-
-	.corner-bl {
-		bottom: 0;
-		left: 0;
-		border-width: 0 0 var(--corner-thickness) var(--corner-thickness);
-	}
-
-	.corner-br {
-		bottom: 0;
-		right: 0;
-		border-width: 0 var(--corner-thickness) var(--corner-thickness) 0;
 	}
 
 	/* Text */
@@ -118,37 +78,40 @@
 	}
 
 	/* Hover */
-	.corner-btn:hover:not(:disabled) {
-		--bg-color: rgba(233, 69, 96, 0.25);
+	.basic-btn:hover:not(:disabled) {
+		--bg-color: rgba(255, 109, 0, 0.2);
+		box-shadow: 0 0 15px rgba(255, 109, 0, 0.15);
 	}
 
-	.corner-btn.famiglia:hover:not(:disabled) {
-		--bg-color: rgba(78, 204, 163, 0.25);
+	.basic-btn.good:hover:not(:disabled) {
+		--bg-color: rgba(0, 230, 118, 0.2);
+		box-shadow: 0 0 15px rgba(0, 230, 118, 0.15);
 	}
 
-	.corner-btn.neutral:hover:not(:disabled) {
-		--bg-color: rgba(255, 255, 255, 0.2);
+	.basic-btn.evil:hover:not(:disabled) {
+		--bg-color: rgba(255, 23, 68, 0.2);
+		box-shadow: 0 0 15px rgba(255, 23, 68, 0.15);
 	}
 
-	.corner-btn:hover:not(:disabled) .corner {
-		--corner-size: 18px;
-		filter: drop-shadow(0 0 6px var(--corner-color));
+	.basic-btn.neutral:hover:not(:disabled) {
+		--bg-color: rgba(255, 255, 255, 0.15);
+		box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 	}
 
 	/* Active */
-	.corner-btn:active:not(:disabled) {
+	.basic-btn:active:not(:disabled) {
 		transform: scale(0.98);
 	}
 
 	/* Disabled */
-	.corner-btn:disabled {
+	.basic-btn:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
 
 	/* Focus */
-	.corner-btn:focus-visible {
-		outline: 2px solid var(--corner-color);
+	.basic-btn:focus-visible {
+		outline: 2px solid var(--btn-color);
 		outline-offset: 4px;
 	}
 </style>

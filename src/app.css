@@ -1,21 +1,27 @@
+@font-face {
+	font-family: 'Urban Heroes';
+	src: url('/urban_heroes/Urban Heroes.ttf') format('truetype');
+	font-display: swap;
+}
+
 :root {
-	/* Palette Mafia - Noir pur */
-	--color-bg: #0a0a0a;
-	--color-surface: #121212;
-	--color-surface-light: #1a1a1a;
-	--color-surface-elevated: #222222;
-	--color-accent: #e94560;
-	--color-accent-dark: #c73e54;
-	--color-text: #eaeaea;
-	--color-text-muted: #888888;
-	--color-success: #4ecca3;
-	--color-success-dark: #3eb489;
-	--color-danger: #e94560;
-	--color-warning: #f39c12;
+	/* Palette Isla Plomo - Violet tropical */
+	--color-bg: #1a1025;
+	--color-surface: #2d1b3e;
+	--color-surface-light: #3d2a4f;
+	--color-surface-elevated: #4d3a5f;
+	--color-accent: #ff6d00;
+	--color-accent-dark: #e65100;
+	--color-text: #fff8e1;
+	--color-text-muted: #b39ddb;
+	--color-success: #00e676;
+	--color-success-dark: #00c853;
+	--color-danger: #ff1744;
+	--color-warning: #ffab00;
 
 	/* Équipes */
-	--color-famiglia: #4ecca3;
-	--color-police: #e94560;
+	--color-good: #ff6d00;
+	--color-evil: #0092ff;
 
 	/* Borders */
 	--color-border: rgba(255, 255, 255, 0.08);
@@ -42,9 +48,9 @@
 	--shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.3);
 
 	/* Glows */
-	--glow-accent: 0 0 20px rgba(233, 69, 96, 0.3);
-	--glow-success: 0 0 20px rgba(78, 204, 163, 0.3);
-	--glow-danger: 0 0 20px rgba(233, 69, 96, 0.3);
+	--glow-accent: 0 0 20px rgba(255, 109, 0, 0.3);
+	--glow-success: 0 0 20px rgba(0, 230, 118, 0.3);
+	--glow-danger: 0 0 20px rgba(255, 23, 68, 0.3);
 
 	/* Transitions */
 	--transition-fast: 150ms ease;
@@ -55,6 +61,7 @@
 
 	/* Typography */
 	--font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--font-display: 'Urban Heroes', sans-serif;
 	--font-weight-light: 300;
 	--font-weight-normal: 400;
 	--font-weight-medium: 500;
@@ -90,8 +97,8 @@ body {
 	font-family: var(--font-family);
 	background-color: var(--color-bg);
 	background-image:
-		linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.92)),
-		url('/omerta/background-mobile.png');
+		linear-gradient(to bottom, rgba(26, 16, 37, 0.6), rgba(26, 16, 37, 0.75)),
+		url('/omerta/background-mobile.webp');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -100,14 +107,6 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-@media (min-width: 768px) {
-	body {
-		background-image:
-			linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.92)),
-			url('/omerta/background.png');
-	}
 }
 
 /* Container principal */
@@ -256,12 +255,12 @@ h3 {
 	color: var(--color-danger);
 }
 
-.text-famiglia {
-	color: var(--color-famiglia);
+.text-good {
+	color: var(--color-good);
 }
 
-.text-police {
-	color: var(--color-police);
+.text-evil {
+	color: var(--color-evil);
 }
 
 /* Spacers */

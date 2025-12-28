@@ -3,8 +3,8 @@
 	import { getRoleInfo, getTeamName } from '$lib/utils/roles';
 	import { t } from '$lib/i18n';
 	import { onMount } from 'svelte';
-	import CornerButton from '$lib/components/ui/CornerButton.svelte';
-
+	import TextButton from '$lib/components/ui/TextButton.svelte';
+	
 	interface Props {
 		player: Player;
 		allPlayers: Player[];
@@ -19,10 +19,10 @@
 	const roleInfo = $derived(getRoleInfo(player, allPlayers, $t));
 
 	const roleImages: Record<Role, string> = {
-		mafioso: '/omerta/the-mafioso.png',
-		policier: '/omerta/the-detective.png',
-		enqueteur: '/omerta/the-investigator.png',
-		taupe: '/omerta/the-mole.png'
+		loyalist: '/omerta/the-loyalist.webp',
+		spy: '/omerta/the-spy.webp',
+		assassin: '/omerta/the-assassin.webp',
+		merlin: '/omerta/the-mole.webp'
 	};
 
 	const roleImage = $derived(roleInfo?.role ? roleImages[roleInfo.role] : '');
@@ -40,43 +40,40 @@
 	});
 </script>
 
-<div class="reveal" class:famiglia={roleInfo.team === 'famiglia'} class:police={roleInfo.team === 'police'}>
+<div class="reveal" class:good={roleInfo.team === 'good'} class:evil={roleInfo.team === 'evil'}>
 	<!-- Full-screen background image -->
 	<div class="bg-image" style="background-image: url({roleImage})"></div>
 
 	<!-- Dark overlay -->
 	<div class="overlay"></div>
 
-	<!-- Content at bottom -->
+	<!-- Team Badge (top-left) -->
+	<div class="team-badge anim-fade-in" style="--delay: 100ms">
+		{getTeamName(roleInfo.team, $t)}
+	</div>
+
+	<!-- Content area -->
 	<div class="content">
-		<div class="text-banner">
-			<!-- Team Badge -->
-			<div class="team-badge anim-fade-in" style="--delay: 100ms">
-				<span class="team-indicator"></span>
-				<span class="team-text">{getTeamName(roleInfo.team, $t)}</span>
-			</div>
-
-			<!-- Role Name -->
-			<h1 class="role-name anim-scale-in" style="--delay: 200ms">
-				{roleInfo.name}
-			</h1>
-
-			<!-- Description -->
-			<p class="role-description anim-fade-in" style="--delay: 300ms">
-				{roleInfo.description}
-			</p>
+		<!-- Role Banner (tilted) -->
+		<div class="role-banner anim-scale-in" style="--delay: 200ms">
+			<h1 class="role-name">{roleInfo.name}</h1>
 		</div>
+
+		<!-- Description -->
+		<p class="role-description anim-fade-in" style="--delay: 300ms">
+			{roleInfo.description}
+		</p>
 	</div>
 
 	<!-- Action Button -->
 	<div class="action-section anim-slide-up" style="--delay: 500ms">
-		<CornerButton team={roleInfo.team} disabled={!canConfirm} onclick={onConfirm}>
+		<TextButton disabled={!canConfirm} onclick={onConfirm}>
 			{#if canConfirm}
 				{$t.roleReveal.understood}
 			{:else}
 				{$t.roleReveal.wait(countdown)}
 			{/if}
-		</CornerButton>
+		</TextButton>
 	</div>
 </div>
 
@@ -93,14 +90,14 @@
 		z-index: 10;
 	}
 
-	.reveal.famiglia {
-		--accent-color: var(--color-famiglia);
-		--accent-glow: rgba(78, 204, 163, 0.4);
+	.reveal.good {
+		--accent-color: var(--color-good);
+		--accent-glow: rgba(255, 109, 0, 0.4);
 	}
 
-	.reveal.police {
-		--accent-color: var(--color-police);
-		--accent-glow: rgba(233, 69, 96, 0.4);
+	.reveal.evil {
+		--accent-color: var(--color-evil);
+		--accent-glow: rgba(0, 146, 255, 0.4);
 	}
 
 	/* === FULL-SCREEN BACKGROUND IMAGE === */
@@ -112,21 +109,21 @@
 		z-index: 0;
 	}
 
-	/* === DARK OVERLAY (lighter at top to show character) === */
+	/* === DARK OVERLAY (gradient from bottom) === */
 	.overlay {
 		position: fixed;
 		inset: 0;
 		background: linear-gradient(
-			to bottom,
-			rgba(22, 33, 62, 0.1) 0%,
-			rgba(22, 33, 62, 0.2) 30%,
-			rgba(22, 33, 62, 0.4) 60%,
-			rgba(22, 33, 62, 0.6) 100%
+			to top,
+			rgba(0, 0, 0, 0.9) 0%,
+			rgba(0, 0, 0, 0.6) 25%,
+			rgba(0, 0, 0, 0.2) 50%,
+			transparent 75%
 		);
 		z-index: 1;
 	}
 
-	/* === CONTENT (at bottom) === */
+	/* === CONTENT (centered) === */
 	.content {
 		position: relative;
 		z-index: 2;
@@ -135,78 +132,57 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-end;
-		padding: 0;
+		padding: 0 var(--spacing-lg);
+		padding-bottom: var(--spacing-xl);
 		text-align: center;
 	}
 
-	/* === TEXT BANNER (black overlay strip) === */
-	.text-banner {
-		width: 100%;
-		padding: var(--spacing-xl) var(--spacing-lg);
-		margin-bottom: var(--spacing-2xl);
-		background: rgba(0, 0, 0, 0.25);
-		backdrop-filter: blur(8px);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	/* === TEAM BADGE === */
+	/* === TEAM BADGE (top-left, tilted) === */
 	.team-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--spacing-sm);
+		position: fixed;
+		top: var(--spacing-lg);
+		left: var(--spacing-lg);
+		z-index: 10;
 		padding: var(--spacing-xs) var(--spacing-md);
-		background: rgba(0, 0, 0, 0.4);
-		border-radius: var(--radius-full);
-		margin-bottom: var(--spacing-lg);
-		backdrop-filter: blur(8px);
-	}
-
-	.team-indicator {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--accent-color);
-		border: 2px solid var(--accent-color);
-		box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
-		animation: indicatorPulse 2s ease-in-out infinite;
-	}
-
-	@keyframes indicatorPulse {
-		0%, 100% { box-shadow: 0 0 10px var(--accent-color); }
-		50% { box-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-color); }
-	}
-
-	.team-text {
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-semibold);
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
+		background: rgba(0, 0, 0, 0.9);
+		font-family: var(--font-display);
+		font-size: var(--text-base);
 		color: var(--accent-color);
+		text-transform: uppercase;
+		transform: rotate(-2deg);
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+	}
+
+	/* === ROLE BANNER (tilted black strip) === */
+	.role-banner {
+		width: 120%;
+		margin-left: -10%;
+		padding: var(--spacing-lg) var(--spacing-xl);
+		background: rgba(0, 0, 0, 0.95);
+		transform: rotate(-3deg);
+		margin-bottom: var(--spacing-xl);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 	}
 
 	/* === ROLE NAME === */
 	.role-name {
-		font-family: var(--font-family);
-		font-size: var(--text-4xl);
-		font-weight: var(--font-weight-extrabold);
-		color: var(--color-text);
-		margin: 0 0 var(--spacing-md) 0;
-		letter-spacing: 0.02em;
-		text-shadow:
-			0 2px 8px rgba(0, 0, 0, 0.5),
-			0 0 60px var(--accent-glow);
+		font-family: var(--font-display);
+		font-size: 3rem;
+		color: var(--accent-color);
+		margin: 0;
+		text-transform: uppercase;
+		transform: rotate(1deg);
+		text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 	}
 
 	/* === DESCRIPTION === */
 	.role-description {
 		font-size: var(--text-base);
-		color: var(--color-text-muted);
+		color: var(--color-text);
 		line-height: 1.6;
 		margin: 0;
 		max-width: 320px;
+		padding: 0 var(--spacing-md);
 	}
 
 	/* === KNOWN PLAYERS SECTION === */
@@ -250,15 +226,15 @@
 		}
 	}
 
-	.chip-police {
+	.chip-evil {
 		background: rgba(233, 69, 96, 0.2);
-		color: var(--color-police);
+		color: var(--color-evil);
 		border: 1px solid rgba(233, 69, 96, 0.3);
 	}
 
-	.chip-famiglia {
+	.chip-good {
 		background: rgba(78, 204, 163, 0.2);
-		color: var(--color-famiglia);
+		color: var(--color-good);
 		border: 1px solid rgba(78, 204, 163, 0.3);
 	}
 
@@ -268,6 +244,7 @@
 		z-index: 2;
 		padding: var(--spacing-lg);
 		padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom));
+		text-align: center;
 	}
 
 	/* === ANIMATIONS === */

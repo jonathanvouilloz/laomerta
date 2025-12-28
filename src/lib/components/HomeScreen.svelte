@@ -3,7 +3,7 @@
 	import { gameStore } from '$lib/stores/gameStore';
 	import { showInstallButton, isIOS, installPwa, openIOSModal } from '$lib/stores/pwaStore';
 	import { t, locale } from '$lib/i18n';
-	import CornerButton from '$lib/components/ui/CornerButton.svelte';
+	import BulletButton from '$lib/components/ui/BulletButton.svelte';
 	import IOSInstallModal from '$lib/components/ui/IOSInstallModal.svelte';
 
 	interface Props {
@@ -38,10 +38,10 @@
 
 	<!-- Decorative role silhouettes -->
 	<div class="role-silhouettes" aria-hidden="true">
-		<img src="/omerta/the-mafioso.png" alt="" class="silhouette s1" />
-		<img src="/omerta/the-agent.png" alt="" class="silhouette s2" />
-		<img src="/omerta/the-mole.png" alt="" class="silhouette s3" />
-		<img src="/omerta/the-investigator.png" alt="" class="silhouette s4" />
+		<img src="/omerta/the-loyalist.webp" alt="" class="silhouette s1" />
+		<img src="/omerta/the-spy.webp" alt="" class="silhouette s2" />
+		<img src="/omerta/the-mole.webp" alt="" class="silhouette s3" />
+		<img src="/omerta/the-assassin.webp" alt="" class="silhouette s4" />
 	</div>
 
 	<!-- Hero Scene -->
@@ -55,26 +55,21 @@
 			<div class="smoke smoke-right" aria-hidden="true"></div>
 
 			<div class="logo-wrapper anim-logo-reveal">
-				<img src="/logo.png" alt="Omerta" class="logo-img" />
+				<img src="/logo-homepage.webp" alt="Isla Plomo" class="logo-img" />
 				<div class="logo-glow"></div>
 				<div class="logo-shadow"></div>
 			</div>
 		</div>
 
-		<!-- Title -->
-		<h1 class="title-cinematic anim-title-glow">
-			<span class="title-text">OMERTA</span>
-		</h1>
-		<div class="title-underline anim-underline"></div>
+		<!-- Tagline -->
 		<p class="tagline anim-fade-in" style="--delay: 1200ms">{$t.home.subtitle}</p>
-	</section>
 
-	<!-- Navigation Panel (fixed bottom) -->
-	<nav class="nav-panel anim-slide-up" style="--delay: 1500ms">
-		<div class="cta-zone">
-			<CornerButton team="neutral" onclick={handleStartGame}>
+		<!-- CTA Zone -->
+		<div class="cta-zone anim-fade-in" style="--delay: 1500ms">
+			<BulletButton team="neutral" onclick={handleStartGame}>
 				{$t.home.newGame}
-			</CornerButton>
+			</BulletButton>
+
 			<p class="info">
 				{$t.home.playerCount} · {$t.home.singlePhone}
 			</p>
@@ -90,7 +85,10 @@
 				</button>
 			{/if}
 		</div>
+	</section>
 
+	<!-- Navigation Panel (fixed bottom) -->
+	<nav class="nav-panel anim-slide-up" style="--delay: 1500ms">
 		<div class="nav-icons">
 			{#if onShowHelp}
 				<button class="nav-btn" onclick={onShowHelp} aria-label={$t.settings.help}>
@@ -257,9 +255,9 @@
 		background: conic-gradient(
 			from 180deg at 50% 0%,
 			transparent 55deg,
-			rgba(233, 69, 96, 0.06) 85deg,
-			rgba(233, 69, 96, 0.12) 90deg,
-			rgba(233, 69, 96, 0.06) 95deg,
+			rgba(255, 109, 0, 0.06) 85deg,
+			rgba(255, 109, 0, 0.12) 90deg,
+			rgba(255, 109, 0, 0.06) 95deg,
 			transparent 125deg
 		);
 		filter: blur(40px);
@@ -319,8 +317,8 @@
 	/* === LOGO === */
 	.logo-wrapper {
 		position: relative;
-		width: 260px;
-		height: 260px;
+		width: 480px;
+		height: 300px;
 	}
 
 	.logo-img {
@@ -329,20 +327,20 @@
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
-		filter: drop-shadow(0 0 30px rgba(233, 69, 96, 0.5));
+		filter: drop-shadow(0 0 15px rgba(255, 109, 0, 0.4));
 	}
 
 	.logo-glow {
 		position: absolute;
-		inset: -30px;
+		inset: -50px;
 		z-index: 1;
 		background: radial-gradient(
-			circle at center,
-			rgba(233, 69, 96, 0.35) 0%,
-			rgba(233, 69, 96, 0.15) 40%,
-			transparent 70%
+			ellipse at center,
+			rgba(255, 109, 0, 0.2) 0%,
+			rgba(255, 109, 0, 0.1) 25%,
+			rgba(255, 109, 0, 0.03) 50%,
+			transparent 100%
 		);
-		border-radius: 50%;
 		animation: logoGlow 4s ease-in-out infinite;
 	}
 
@@ -389,99 +387,31 @@
 		}
 	}
 
-	/* === TITLE === */
-	.title-cinematic {
-		margin: 0;
-		margin-bottom: var(--spacing-xs);
-	}
-
-	.title-text {
-		font-family: var(--font-family);
-		font-size: clamp(3rem, 15vw, 4.5rem);
-		font-weight: var(--font-weight-extrabold);
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: var(--color-text);
-		text-shadow:
-			0 0 60px rgba(233, 69, 96, 0.7),
-			0 0 120px rgba(233, 69, 96, 0.4),
-			0 4px 8px rgba(0, 0, 0, 0.6);
-	}
-
-	.anim-title-glow {
-		animation: titleGlow 2s ease-out 0.8s both;
-	}
-
-	@keyframes titleGlow {
-		0% {
-			opacity: 0;
-			text-shadow: none;
-		}
-		40% {
-			text-shadow: 0 0 100px rgba(233, 69, 96, 1);
-		}
-		100% {
-			opacity: 1;
-			text-shadow:
-				0 0 60px rgba(233, 69, 96, 0.7),
-				0 0 120px rgba(233, 69, 96, 0.4),
-				0 4px 8px rgba(0, 0, 0, 0.6);
-		}
-	}
-
-	.title-underline {
-		width: 80px;
-		height: 3px;
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			var(--color-accent) 50%,
-			transparent 100%
-		);
-		border-radius: 2px;
-		margin-bottom: var(--spacing-md);
-	}
-
-	.anim-underline {
-		animation: underlineReveal 0.8s ease-out 1s both;
-	}
-
-	@keyframes underlineReveal {
-		0% {
-			width: 0;
-			opacity: 0;
-		}
-		100% {
-			width: 80px;
-			opacity: 1;
-		}
-	}
-
 	.tagline {
-		font-size: var(--text-lg);
+		font-size: var(--text-xl);
 		color: var(--color-text-muted);
 		font-style: italic;
-		letter-spacing: 0.08em;
-		margin: 0;
+		letter-spacing: 0.1em;
+		margin: var(--spacing-lg) 0 0 0;
 	}
 
 	/* === NAVIGATION PANEL === */
 	.nav-panel {
 		position: relative;
 		z-index: 5;
-		padding: var(--spacing-lg);
-		padding-bottom: max(var(--spacing-xl), env(safe-area-inset-bottom));
+		padding: var(--spacing-sm);
+		padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
 		background: linear-gradient(
 			to top,
-			rgba(26, 26, 46, 0.98) 0%,
-			rgba(26, 26, 46, 0.85) 60%,
+			rgba(26, 16, 37, 0.95) 0%,
+			rgba(26, 16, 37, 0.7) 50%,
 			transparent 100%
 		);
 	}
 
 	.cta-zone {
 		max-width: 320px;
-		margin: 0 auto var(--spacing-2xl);
+		margin: var(--spacing-2xl) auto 0;
 		text-align: center;
 	}
 

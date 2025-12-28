@@ -18,33 +18,33 @@ export function assignRoles(players: Player[], useSpecialRoles: boolean): Player
 	// Créer la liste des rôles à distribuer
 	const roles: RoleAssignment[] = [];
 
-	// Rôles de La Famiglia
-	const mafiaCount = config.mafiaCount;
+	// Rôles de l'équipe Good
+	const goodCount = config.goodCount;
 	if (useSpecialRoles && config.specialRolesAvailable) {
-		// 1 Taupe + reste en Mafiosi
-		roles.push({ role: 'taupe', team: 'famiglia' });
-		for (let i = 0; i < mafiaCount - 1; i++) {
-			roles.push({ role: 'mafioso', team: 'famiglia' });
+		// 1 Merlin + reste en Loyalists
+		roles.push({ role: 'merlin', team: 'good' });
+		for (let i = 0; i < goodCount - 1; i++) {
+			roles.push({ role: 'loyalist', team: 'good' });
 		}
 	} else {
-		// Tous Mafiosi
-		for (let i = 0; i < mafiaCount; i++) {
-			roles.push({ role: 'mafioso', team: 'famiglia' });
+		// Tous Loyalists
+		for (let i = 0; i < goodCount; i++) {
+			roles.push({ role: 'loyalist', team: 'good' });
 		}
 	}
 
-	// Rôles des Flics
-	const policeCount = config.policeCount;
+	// Rôles de l'équipe Evil
+	const evilCount = config.evilCount;
 	if (useSpecialRoles && config.specialRolesAvailable) {
-		// 1 Enquêteur + reste en Policiers
-		roles.push({ role: 'enqueteur', team: 'police' });
-		for (let i = 0; i < policeCount - 1; i++) {
-			roles.push({ role: 'policier', team: 'police' });
+		// 1 Assassin + reste en Spies
+		roles.push({ role: 'assassin', team: 'evil' });
+		for (let i = 0; i < evilCount - 1; i++) {
+			roles.push({ role: 'spy', team: 'evil' });
 		}
 	} else {
-		// Tous Policiers
-		for (let i = 0; i < policeCount; i++) {
-			roles.push({ role: 'policier', team: 'police' });
+		// Tous Spies
+		for (let i = 0; i < evilCount; i++) {
+			roles.push({ role: 'spy', team: 'evil' });
 		}
 	}
 
@@ -69,16 +69,16 @@ export function getRoleInfo(player: Player, allPlayers: Player[], translations: 
 	// Déterminer les joueurs connus
 	let knownPlayers: Player[] = [];
 
-	if (role === 'policier' || role === 'enqueteur') {
-		// Les policiers voient les autres policiers
+	if (role === 'spy' || role === 'assassin') {
+		// Les spies voient les autres spies
 		knownPlayers = allPlayers.filter(
-			(p) => p.id !== player.id && (p.role === 'policier' || p.role === 'enqueteur')
+			(p) => p.id !== player.id && (p.role === 'spy' || p.role === 'assassin')
 		);
-	} else if (role === 'taupe') {
-		// La Taupe voit tous les policiers
-		knownPlayers = allPlayers.filter((p) => p.role === 'policier' || p.role === 'enqueteur');
+	} else if (role === 'merlin') {
+		// Merlin voit tous les spies
+		knownPlayers = allPlayers.filter((p) => p.role === 'spy' || p.role === 'assassin');
 	}
-	// Les Mafiosi standards ne voient personne
+	// Les Loyalists standards ne voient personne
 
 	const roleTranslation = translations.roles[role];
 
@@ -95,7 +95,7 @@ export function getRoleInfo(player: Player, allPlayers: Player[], translations: 
  * Obtient le nom d'équipe
  */
 export function getTeamName(team: Team, translations: Translations): string {
-	return team === 'famiglia' ? translations.teams.famiglia : translations.teams.police;
+	return team === 'good' ? translations.teams.good : translations.teams.evil;
 }
 
 /**

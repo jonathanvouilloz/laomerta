@@ -25,10 +25,10 @@
 	const losers = $derived(players.filter(p => p.team !== winner));
 
 	const roleImages: Record<Role, string> = {
-		mafioso: '/omerta/the-mafioso.png',
-		policier: '/omerta/the-detective.png',
-		enqueteur: '/omerta/the-investigator.png',
-		taupe: '/omerta/the-mole.png'
+		loyalist: '/omerta/the-loyalist.webp',
+		spy: '/omerta/the-spy.webp',
+		assassin: '/omerta/the-assassin.webp',
+		merlin: '/omerta/the-mole.webp'
 	};
 
 	function getRoleName(role: Role): string {
@@ -40,7 +40,7 @@
 	}
 </script>
 
-<div class="game-end" class:famiglia={winner === 'famiglia'} class:police={winner === 'police'}>
+<div class="game-end" class:good={winner === 'good'} class:evil={winner === 'evil'}>
 	<!-- Atmospheric Background -->
 	<div class="atmosphere"></div>
 
@@ -106,7 +106,7 @@
 
 <style>
 	.game-end {
-		--winner-color: var(--color-famiglia);
+		--winner-color: var(--color-good);
 		--winner-glow: rgba(78, 204, 163, 0.3);
 
 		position: relative;
@@ -115,8 +115,8 @@
 		overflow: hidden;
 	}
 
-	.game-end.police {
-		--winner-color: var(--color-police);
+	.game-end.evil {
+		--winner-color: var(--color-evil);
 		--winner-glow: rgba(233, 69, 96, 0.3);
 	}
 
