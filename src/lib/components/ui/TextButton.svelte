@@ -3,7 +3,7 @@
 
 	interface Props {
 		variant?: 'default' | 'danger' | 'success';
-		size?: 'normal' | 'small';
+		size?: 'normal' | 'medium' | 'small';
 		disabled?: boolean;
 		onclick?: (event: MouseEvent) => void;
 		children: Snippet;
@@ -16,6 +16,7 @@
 	class="text-btn"
 	class:danger={variant === 'danger'}
 	class:success={variant === 'success'}
+	class:medium={size === 'medium'}
 	class:small={size === 'small'}
 	{disabled}
 	{onclick}
@@ -56,6 +57,11 @@
 
 	.text-btn.success {
 		color: var(--color-success);
+	}
+
+	.text-btn.medium {
+		font-size: 2.5rem;
+		padding: var(--spacing-sm) var(--spacing-lg);
 	}
 
 	.text-btn.small {

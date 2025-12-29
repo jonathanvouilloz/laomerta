@@ -20,6 +20,7 @@
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
 	import HelpModal from '$lib/components/HelpModal.svelte';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
+	import TextButton from '$lib/components/ui/TextButton.svelte';
 
 	// État local pour gérer les transitions
 	let showMasked = $state(false);
@@ -144,21 +145,12 @@
 		{/if}
 	{:else if $gameStore.phase === 'mission-result-pending'}
 		<div class="result-pending">
-			<div class="spacer"></div>
-			<div class="pending-content animate-fade-in">
-				<div class="pending-icon">
-					<svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5">
-						<circle cx="12" cy="12" r="10" />
-						<path d="M12 6v6l4 2" stroke-linecap="round" />
-					</svg>
-				</div>
-				<h2>{$t.transitions.allVotesRecorded}</h2>
-				<p class="text-muted">{$t.teamSelection.mission($currentMission.number)}</p>
+			<div class="operation-badge">
+				{$t.teamSelection.mission($currentMission.number)}
 			</div>
-			<div class="spacer"></div>
-			<CornerButton team="neutral" onclick={() => gameStore.revealMissionResult()}>
+			<TextButton size="medium" onclick={() => gameStore.revealMissionResult()}>
 				{$t.transitions.seeResult}
-			</CornerButton>
+			</TextButton>
 		</div>
 	{:else if $gameStore.phase === 'mission-result'}
 		<MissionResult
@@ -190,7 +182,7 @@
 		onclick={() => showSettings = true}
 		aria-label={$t.settings.title}
 	>
-		<img src="/settings.webp" alt="" width="44" height="44" />
+		<img src="/settings.webp" alt="" width="35" height="35" />
 	</button>
 {/if}
 
@@ -225,23 +217,31 @@
 	}
 
 	.result-pending {
-		display: flex;
-		flex-direction: column;
-		min-height: 100dvh;
-		padding: var(--spacing-xl);
-		text-align: center;
-	}
-
-	.pending-content {
+		position: fixed;
+		inset: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--spacing-md);
+		justify-content: flex-end;
+		padding-bottom: 15dvh;
+		background-image: url('/background-vote.webp');
+		background-size: cover;
+		background-position: center;
 	}
 
-	.pending-icon {
-		color: var(--color-warning);
-		margin-bottom: var(--spacing-md);
+	.operation-badge {
+		position: fixed;
+		top: var(--spacing-lg);
+		left: var(--spacing-lg);
+		z-index: 10;
+		padding: var(--spacing-xs) var(--spacing-md);
+		background: rgba(0, 0, 0, 0.9);
+		font-family: var(--font-display);
+		font-size: var(--text-base);
+		color: var(--color-good);
+		text-transform: uppercase;
+		transform: rotate(-2deg);
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
 	}
 
 	/* Bouton Paramètres */

@@ -4,6 +4,12 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: 'Swash Break';
+	src: url('/swash_break/Swash Break Trial.otf') format('opentype');
+	font-display: swap;
+}
+
 :root {
 	/* Palette Isla Plomo - Violet tropical */
 	--color-bg: #1a1025;

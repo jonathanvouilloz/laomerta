@@ -30,7 +30,9 @@
 	<div class="header anim-slide-down">
 		<h2 class="title">{$t.teamSelection.mission(mission.number)}</h2>
 		<p class="subtitle">{$t.teamSelection.leaderChooses(leaderName, mission.teamSize)}</p>
-		<p class="requirement">{$t.teamSelection.requiredFailures(mission.requiredFailures)}</p>
+		{#if mission.requiredFailures > 1}
+			<p class="requirement">{$t.teamSelection.requiredFailures(mission.requiredFailures)}</p>
+		{/if}
 	</div>
 
 	<!-- Players Grid -->
@@ -115,18 +117,18 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-lg);
-		background: var(--color-surface);
-		border: 1px solid var(--color-surface-light);
-		border-radius: var(--radius-md);
+		background: url('/board-crew.png') center/contain no-repeat;
+		border: none;
+		border-radius: 0;
 		color: var(--color-text);
 		font-family: var(--font-family);
 		font-size: var(--text-base);
 		cursor: pointer;
+		aspect-ratio: 820/200;
+		max-height: 60px;
 		transition:
-			border-color 200ms ease,
-			background-color 200ms ease,
-			transform 200ms var(--ease-out-expo),
-			box-shadow 200ms ease;
+			filter 200ms ease,
+			transform 200ms var(--ease-out-expo);
 		animation: playerIn 400ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
@@ -141,18 +143,19 @@
 	}
 
 	.player-btn:hover {
-		border-color: var(--color-accent);
-		transform: translateX(4px);
+		filter: brightness(1.1);
+		transform: scale(1.02);
 	}
 
 	.player-btn.selected {
-		background: rgba(233, 69, 96, 0.15);
-		border-color: var(--color-accent);
-		box-shadow: var(--glow-accent);
+		filter: brightness(1.2) drop-shadow(0 0 8px var(--color-accent));
 	}
 
 	.player-name {
-		font-weight: var(--font-weight-medium);
+		font-family: 'Swash Break', var(--font-display);
+		font-size: var(--text-2xl);
+		color: #3d2a1a;
+		text-transform: uppercase;
 	}
 
 	/* === COUNTER === */

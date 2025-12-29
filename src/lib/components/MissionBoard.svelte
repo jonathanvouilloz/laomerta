@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { gameStore, currentMission, currentLeader } from '$lib/stores/gameStore';
+	import { gameStore, currentMission } from '$lib/stores/gameStore';
 	import { t } from '$lib/i18n';
 	import Card from '$lib/components/ui/Card.svelte';
 
@@ -27,26 +27,32 @@
 		<!-- Mission Indicators -->
 		<div class="missions">
 			{#each missions as mission, i}
-				<div
-					class="mission-dot"
-					class:dot-success={mission.result.completed && mission.result.success}
-					class:dot-fail={mission.result.completed && !mission.result.success}
-					class:dot-current={!mission.result.completed && i === $gameStore.currentMissionIndex}
-					class:dot-pending={!mission.result.completed && i !== $gameStore.currentMissionIndex}
-				>
-					{#if mission.result.completed}
-						<img
-							src="/omerta/{mission.result.success ? 'icon-good' : 'icon-bad'}.webp"
-							alt=""
-							class="mission-result-icon"
-						/>
-						<span class="mission-size-below">{mission.teamSize}</span>
-					{:else}
-						<span class="mission-size">{mission.teamSize}</span>
-						{#if mission.requiredFailures === 2}
+				{@const isCurrent = !mission.result.completed && i === $gameStore.currentMissionIndex}
+				{@const isPending = !mission.result.completed && i !== $gameStore.currentMissionIndex}
+				<div class="mission-slot">
+					<div
+						class="mission-badge"
+						class:current={isCurrent}
+						class:pending={isPending}
+					>
+						{#if mission.result.completed}
+							<img
+								src="/omerta/{mission.result.success ? 'icon-good' : 'icon-bad'}.webp"
+								alt=""
+								class="badge-icon"
+							/>
+						{:else}
+							<img
+								src="/mission-badge.webp"
+								alt=""
+								class="badge-icon"
+							/>
+						{/if}
+						{#if mission.requiredFailures === 2 && !mission.result.completed}
 							<span class="mission-special">!</span>
 						{/if}
-					{/if}
+					</div>
+					<span class="mission-size">{mission.teamSize}</span>
 				</div>
 			{/each}
 		</div>
@@ -54,17 +60,11 @@
 		<!-- Divider -->
 		<div class="divider"></div>
 
-		<!-- Info -->
+		<!-- Info: Compteur de rejets (toujours visible) -->
 		<div class="info">
-			<p class="leader-info">
-				<span class="info-label">{$t.missionBoard.teamLeader}</span>
-				<strong class="leader-name">{$currentLeader?.name}</strong>
+			<p class="rejections" class:danger={consecutiveRejections >= 4}>
+				{$t.missionBoard.consecutiveRejections(consecutiveRejections)}
 			</p>
-			{#if consecutiveRejections > 0}
-				<p class="rejections">
-					{$t.missionBoard.consecutiveRejections(consecutiveRejections)}
-				</p>
-			{/if}
 		</div>
 	</Card>
 </div>
@@ -72,6 +72,16 @@
 <style>
 	.board {
 		margin-bottom: var(--spacing-lg);
+		margin-left: calc(-1 * var(--spacing-xl));
+		margin-right: calc(-1 * var(--spacing-xl));
+		padding-left: var(--spacing-sm);
+		padding-right: var(--spacing-sm);
+	}
+
+	/* Override Card styles for square look */
+	.board :global(.card) {
+		border-radius: 0;
+		border: none;
 	}
 
 	/* === SCORES === */
@@ -121,59 +131,54 @@
 	/* === MISSIONS === */
 	.missions {
 		display: flex;
-		justify-content: center;
-		gap: var(--spacing-md);
+		justify-content: space-between;
 		margin-bottom: var(--spacing-lg);
 	}
 
-	.mission-dot {
-		position: relative;
-		width: 4rem;
-		min-height: 4rem;
-		border-radius: var(--radius-full);
+	.mission-slot {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		font-weight: var(--font-weight-semibold);
-		font-size: var(--text-sm);
-		transition: transform 200ms ease, box-shadow 200ms ease;
+		gap: var(--spacing-xs);
 	}
 
-	.dot-pending {
-		width: 3.75rem;
-		min-height: 3.75rem;
-		background: var(--color-surface-light);
-		color: var(--color-text-muted);
-		border: 2px solid var(--color-border);
+	.mission-badge {
+		position: relative;
+		width: 4rem;
+		height: 4rem;
 	}
 
-	.dot-success,
-	.dot-fail {
-		background: transparent;
-		color: var(--color-text);
+	.badge-icon {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transition: filter 200ms ease, opacity 200ms ease, transform 200ms ease;
 	}
 
-	.dot-current {
-		width: 3.75rem;
-		min-height: 3.75rem;
-		background: var(--color-warning);
-		color: var(--color-bg);
-		animation: currentPulse 2s ease-in-out infinite;
-		box-shadow: 0 0 16px rgba(243, 156, 18, 0.5);
+	/* État: Pending (future) */
+	.mission-badge.pending .badge-icon {
+		filter: grayscale(0.7) brightness(0.5);
+		opacity: 0.6;
+	}
+
+	/* État: Current (en cours) */
+	.mission-badge.current .badge-icon {
+		animation: currentPulse 2.5s ease-in-out infinite;
+		filter: drop-shadow(0 0 6px rgba(255, 109, 0, 0.5));
 	}
 
 	@keyframes currentPulse {
 		0%, 100% {
 			transform: scale(1);
-			box-shadow: 0 0 16px rgba(243, 156, 18, 0.5);
+			filter: drop-shadow(0 0 6px rgba(255, 109, 0, 0.5));
 		}
 		50% {
-			transform: scale(1.05);
-			box-shadow: 0 0 24px rgba(243, 156, 18, 0.7);
+			transform: scale(1.03);
+			filter: drop-shadow(0 0 10px rgba(255, 109, 0, 0.6));
 		}
 	}
 
+	/* Badge spécial (mission 4 avec 2 sabotages requis) */
 	.mission-special {
 		position: absolute;
 		top: -4px;
@@ -189,18 +194,18 @@
 		align-items: center;
 		justify-content: center;
 		box-shadow: var(--shadow-sm);
+		z-index: 2;
 	}
 
-	.mission-result-icon {
-		width: 5rem;
-		height: auto;
-		border-radius: var(--radius-sm);
-	}
-
-	.mission-size-below {
-		font-size: var(--text-xs);
+	/* Taille de l'équipe */
+	.mission-size {
+		font-size: var(--text-sm);
 		font-weight: var(--font-weight-bold);
-		margin-top: 0.125rem;
+		color: var(--color-text);
+	}
+
+	.mission-badge.pending + .mission-size {
+		color: var(--color-text-muted);
 	}
 
 	/* === DIVIDER === */
@@ -215,28 +220,15 @@
 		text-align: center;
 	}
 
-	.leader-info {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: var(--spacing-sm);
+	.rejections {
 		margin: 0;
-	}
-
-	.info-label {
 		font-size: var(--text-sm);
 		color: var(--color-text-muted);
-	}
-
-	.leader-name {
-		font-weight: var(--font-weight-bold);
-		color: var(--color-text);
-	}
-
-	.rejections {
-		margin: var(--spacing-sm) 0 0 0;
-		font-size: var(--text-sm);
-		color: var(--color-danger);
 		font-weight: var(--font-weight-medium);
+		transition: color 200ms ease;
+	}
+
+	.rejections.danger {
+		color: var(--color-danger);
 	}
 </style>

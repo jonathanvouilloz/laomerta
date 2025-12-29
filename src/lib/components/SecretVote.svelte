@@ -131,14 +131,13 @@
 
 	/* === ROLE BANNER (full width) === */
 	.role-banner {
-		position: relative;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 100vw;
+		width: 120vw;
+		margin-left: -10vw;
 		padding: var(--spacing-lg) var(--spacing-xl);
 		background: rgba(0, 0, 0, 0.95);
 		margin-bottom: var(--spacing-xl);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+		transform: rotate(-5deg);
 	}
 
 	/* === ROLE NAME === */
@@ -147,6 +146,7 @@
 		font-size: 3rem;
 		color: var(--accent-color);
 		margin: 0;
+		padding-left: 1.5rem;
 		text-transform: uppercase;
 		text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 	}
@@ -169,13 +169,13 @@
 		animation: scaleIn 600ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
-		transform: scale(0.9);
+		transform: scale(0.9) rotate(-5deg);
 	}
 
 	@keyframes scaleIn {
 		to {
 			opacity: 1;
-			transform: scale(1);
+			transform: scale(1) rotate(-5deg);
 		}
 	}
 
