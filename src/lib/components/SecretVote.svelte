@@ -129,13 +129,14 @@
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
 	}
 
-	/* === ROLE BANNER (tilted black strip) === */
+	/* === ROLE BANNER (full width) === */
 	.role-banner {
-		width: 120%;
-		margin-left: -10%;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100vw;
 		padding: var(--spacing-lg) var(--spacing-xl);
 		background: rgba(0, 0, 0, 0.95);
-		transform: rotate(-3deg);
 		margin-bottom: var(--spacing-xl);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 	}
@@ -147,7 +148,6 @@
 		color: var(--accent-color);
 		margin: 0;
 		text-transform: uppercase;
-		transform: rotate(1deg);
 		text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 	}
 
@@ -169,13 +169,13 @@
 		animation: scaleIn 600ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
-		transform: scale(0.9) rotate(-3deg);
+		transform: scale(0.9);
 	}
 
 	@keyframes scaleIn {
 		to {
 			opacity: 1;
-			transform: scale(1) rotate(-3deg);
+			transform: scale(1);
 		}
 	}
 
