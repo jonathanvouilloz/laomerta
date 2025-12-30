@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Player } from '$lib/types/game';
 	import { t } from '$lib/i18n';
-	import CornerButton from '$lib/components/ui/CornerButton.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
+	import TextButton from '$lib/components/ui/TextButton.svelte';
 
 	interface Props {
 		players: Player[];
@@ -27,52 +26,41 @@
 		<p class="subtitle">{$t.accusation.mafiaWon}</p>
 	</div>
 
-	<!-- Instruction Card -->
-	<div class="section anim-fade-in" style="--delay: 100ms">
-		<Card variant="elevated" accent="evil" padding="md">
-			<p class="instruction">
-				{$t.accusation.instruction} <strong class="highlight">{$t.roles.merlin.name}</strong>.
-			</p>
-		</Card>
+	<!-- Instruction Banner -->
+	<div class="banner anim-fade-in" style="--delay: 100ms">
+		<p class="instruction">
+			{$t.accusation.instruction} <strong class="highlight">{$t.roles.merlin.name}</strong>.
+		</p>
 	</div>
 
 	<!-- Suspects List -->
-	<div class="section anim-fade-in" style="--delay: 200ms">
-		<Card variant="default" padding="lg">
-			<p class="section-label">{$t.accusation.whoIsMole}</p>
-			<div class="suspects">
-				{#each suspects as player, i}
-					<button
-						class="suspect-btn"
-						class:selected={selectedId === player.id}
-						onclick={() => (selectedId = player.id)}
-						style="--delay: {250 + i * 50}ms"
-					>
-						<span class="suspect-name">{player.name}</span>
-						<span class="suspect-indicator" class:active={selectedId === player.id}>
-							{#if selectedId === player.id}
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-									<polyline points="20 6 9 17 4 12"></polyline>
-								</svg>
-							{/if}
-						</span>
-					</button>
-				{/each}
-			</div>
-		</Card>
+	<div class="suspects-section anim-fade-in" style="--delay: 200ms">
+		<p class="section-label">{$t.accusation.whoIsMole}</p>
+		<div class="suspects">
+			{#each suspects as player, i}
+				<button
+					class="suspect-board"
+					class:selected={selectedId === player.id}
+					onclick={() => (selectedId = player.id)}
+					style="--delay: {250 + i * 50}ms"
+				>
+					<span class="suspect-name">{player.name}</span>
+				</button>
+			{/each}
+		</div>
 	</div>
 
 	<div class="spacer"></div>
 
 	<!-- Action -->
 	<div class="action anim-slide-up" style="--delay: 400ms">
-		<CornerButton
-			team="evil"
+		<TextButton
+			size="medium"
 			disabled={!selectedId}
 			onclick={() => selectedId && onAccuse(selectedId)}
 		>
 			{$t.accusation.accuse}
-		</CornerButton>
+		</TextButton>
 	</div>
 </div>
 
@@ -103,39 +91,35 @@
 		position: relative;
 		z-index: 1;
 		text-align: center;
-		margin-bottom: var(--spacing-lg);
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.title {
-		font-size: var(--text-2xl);
+		font-family: var(--font-display);
+		font-size: var(--text-4xl);
 		font-weight: var(--font-weight-bold);
+		text-transform: uppercase;
 		color: var(--color-text);
-		margin: 0 0 var(--spacing-xs) 0;
+		margin: 0 0 var(--spacing-sm) 0;
 	}
 
 	.subtitle {
 		font-size: var(--text-base);
-		color: var(--color-text-muted);
+		color: var(--color-text);
 		margin: 0;
 	}
 
-	/* === SECTIONS === */
-	.section {
+	/* === BANNER === */
+	.banner {
 		position: relative;
 		z-index: 1;
-		margin-bottom: var(--spacing-md);
+		background: #000;
+		width: 100vw;
+		margin-left: calc(-1 * var(--spacing-lg));
+		padding: var(--spacing-md) var(--spacing-lg);
+		margin-bottom: var(--spacing-xl);
 	}
 
-	.section-label {
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-medium);
-		color: var(--color-text-muted);
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		margin: 0 0 var(--spacing-md) 0;
-	}
-
-	/* === INSTRUCTION === */
 	.instruction {
 		text-align: center;
 		color: var(--color-text-muted);
@@ -148,79 +132,69 @@
 		font-weight: var(--font-weight-bold);
 	}
 
+	/* === SUSPECTS SECTION === */
+	.suspects-section {
+		position: relative;
+		z-index: 1;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.section-label {
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--color-text);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		text-align: center;
+		margin: 0 0 var(--spacing-md) 0;
+	}
+
 	/* === SUSPECTS === */
 	.suspects {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-sm);
+		gap: var(--spacing-md);
 	}
 
-	.suspect-btn {
+	.suspect-board {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-lg);
-		background: linear-gradient(
-			135deg,
-			rgba(31, 43, 71, 0.8) 0%,
-			rgba(22, 33, 62, 0.9) 100%
-		);
-		border: 2px solid var(--color-surface-light);
-		border-radius: var(--radius-md);
-		color: var(--color-text);
-		font-family: var(--font-family);
-		font-size: var(--text-base);
+		background: url('/board-crew.webp') center/contain no-repeat;
+		border: none;
+		border-radius: 0;
 		cursor: pointer;
-		transition:
-			border-color 200ms ease,
-			background-color 200ms ease,
-			transform 200ms var(--ease-out-expo),
-			box-shadow 200ms ease;
-		animation: suspectIn 400ms var(--ease-out-expo) forwards;
+		aspect-ratio: 820/200;
+		max-height: 60px;
+		transition: filter 200ms ease, transform 200ms var(--ease-out-expo);
+		animation: boardIn 400ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
 		transform: translateX(-10px);
 	}
 
-	@keyframes suspectIn {
+	@keyframes boardIn {
 		to {
 			opacity: 1;
 			transform: translateX(0);
 		}
 	}
 
-	.suspect-btn:hover {
-		border-color: var(--color-warning);
-		transform: translateX(4px);
+	.suspect-board:hover {
+		filter: brightness(1.1);
+		transform: scale(1.02);
 	}
 
-	.suspect-btn.selected {
-		background: linear-gradient(135deg, var(--color-warning) 0%, #d68910 100%);
-		border-color: var(--color-warning);
-		box-shadow: var(--shadow-md), 0 0 20px rgba(243, 156, 18, 0.3);
+	.suspect-board.selected {
+		filter: brightness(1.2) drop-shadow(0 0 8px var(--color-accent));
 	}
 
 	.suspect-name {
-		font-weight: var(--font-weight-medium);
-	}
-
-	.suspect-indicator {
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
-		border: 2px solid var(--color-surface-light);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition:
-			border-color 200ms ease,
-			background-color 200ms ease;
-	}
-
-	.suspect-indicator.active {
-		background: var(--color-bg);
-		border-color: var(--color-bg);
-		color: var(--color-warning);
+		font-family: 'Swash Break', var(--font-display);
+		font-size: var(--text-2xl);
+		color: #3d2a1a;
+		text-transform: uppercase;
 	}
 
 	/* === SPACER === */
