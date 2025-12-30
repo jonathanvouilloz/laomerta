@@ -323,7 +323,16 @@ function createGameStore() {
 		restartGame: () => {
 			clearGameState();
 			set(initialState);
-		}
+		},
+
+		// Rejouer avec les mêmes joueurs (conserve les noms, réinitialise le reste)
+		replayWithSamePlayers: () =>
+			update((state) => ({
+				...initialState,
+				phase: 'setup',
+				players: state.players.map((p) => ({ id: p.id, name: p.name })),
+				useSpecialRoles: state.useSpecialRoles
+			}))
 	};
 }
 

@@ -169,7 +169,7 @@
 			players={$gameStore.players}
 			missions={$gameStore.missions}
 			accusedPlayerId={$gameStore.accusedPlayerId}
-			onNewGame={() => gameStore.goToSetup()}
+			onNewGame={() => gameStore.replayWithSamePlayers()}
 			onHome={() => gameStore.returnHome()}
 		/>
 	{/if}

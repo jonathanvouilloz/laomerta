@@ -5,9 +5,17 @@
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 
-	let playerCount = $state(5);
-	let playerNames: string[] = $state(Array(10).fill(''));
-	let useSpecialRoles = $state(false);
+	// Utiliser les joueurs existants s'ils sont disponibles (pour rejouer)
+	const existingPlayers = $gameStore.players;
+	const hasExistingPlayers = existingPlayers.length >= 5;
+
+	let playerCount = $state(hasExistingPlayers ? existingPlayers.length : 5);
+	let playerNames: string[] = $state(
+		hasExistingPlayers
+			? [...existingPlayers.map((p) => p.name), ...Array(10 - existingPlayers.length).fill('')]
+			: Array(10).fill('')
+	);
+	let useSpecialRoles = $state($gameStore.useSpecialRoles);
 	let showRoles = $state(false);
 
 	const currentConfig = $derived(playerCount >= 5 && playerCount <= 10 ? getMissionConfig(playerCount) : null);
