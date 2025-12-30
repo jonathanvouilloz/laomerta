@@ -117,7 +117,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-lg);
-		background: url('/board-crew.png') center/contain no-repeat;
+		background: url('/board-crew.webp') center/contain no-repeat;
 		border: none;
 		border-radius: 0;
 		color: var(--color-text);

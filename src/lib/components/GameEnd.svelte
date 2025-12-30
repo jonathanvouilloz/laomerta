@@ -4,7 +4,6 @@
 	import { getTeamName } from '$lib/utils/roles';
 	import { t } from '$lib/i18n';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
-	import Badge from '$lib/components/ui/Badge.svelte';
 
 	interface Props {
 		winner: Team;
@@ -24,280 +23,247 @@
 	const winners = $derived(players.filter(p => p.team === winner));
 	const losers = $derived(players.filter(p => p.team !== winner));
 
-	const roleImages: Record<Role, string> = {
-		loyalist: '/omerta/the-loyalist.webp',
-		spy: '/omerta/the-spy.webp',
-		assassin: '/omerta/the-assassin.webp',
-		merlin: '/omerta/the-mole.webp'
-	};
-
 	function getRoleName(role: Role): string {
 		return $t.roles[role].name;
-	}
-
-	function getRoleImage(role: Role | undefined): string {
-		return role ? roleImages[role] : '';
 	}
 </script>
 
 <div class="game-end" class:good={winner === 'good'} class:evil={winner === 'evil'}>
-	<!-- Atmospheric Background -->
-	<div class="atmosphere"></div>
+	<!-- Background Image -->
+	<div class="background"></div>
 
-	<!-- Victory Banner -->
-	<div class="result anim-bounce-in">
-		<p class="winner-label">{$t.gameEnd.victory}</p>
-		<h1 class="winner-name">{winnerName}</h1>
-		<p class="win-reason">{$t.winReasons[winReasonKey]}</p>
-	</div>
+	<!-- Overlay for readability -->
+	<div class="overlay"></div>
 
-	<!-- Winners Section -->
-	<div class="section anim-slide-up" style="--delay: 200ms">
-		<h3 class="section-title">{$t.gameEnd.winners || 'Les gagnants'}</h3>
-		<div class="winners-grid">
-			{#each winners as player, i}
-				<div class="winner-card" style="--delay: {250 + i * 100}ms">
-					<img src={getRoleImage(player.role)} alt="" class="winner-image" />
-					<p class="winner-name-label">{player.name}</p>
-					<Badge>{getRoleName(player.role!)}</Badge>
-				</div>
-			{/each}
+	<!-- Content -->
+	<div class="content">
+		<!-- Victory Banner -->
+		<div class="victory-banner anim-bounce-in">
+			<p class="victory-label">{$t.gameEnd.victory}</p>
+			<h1 class="team-name">{winnerName}</h1>
+			<p class="win-reason">{$t.winReasons[winReasonKey]}</p>
 		</div>
-	</div>
 
-	<!-- Losers Section -->
-	{#if losers.length > 0}
-		<div class="section anim-slide-up" style="--delay: 350ms">
-			<h3 class="section-title losers-title">{$t.gameEnd.losers || 'Les perdants'}</h3>
-			<div class="losers-list">
-				{#each losers as player}
-					<div class="loser-item">
-						<span class="loser-name">{player.name}</span>
-						<Badge>{getRoleName(player.role!)}</Badge>
+		<!-- Winners Section -->
+		<div class="team-section winners anim-slide-up" style="--delay: 200ms">
+			<h3 class="section-title">{$t.gameEnd.winners}</h3>
+			<div class="players-list">
+				{#each winners as player, i}
+					<div class="player-board winner-glow" style="--delay: {250 + i * 80}ms">
+						<span class="player-name">{player.name}</span>
 					</div>
 				{/each}
 			</div>
 		</div>
-	{/if}
 
-	<!-- Missions Recap (compact) -->
-	<div class="section anim-slide-up" style="--delay: 450ms">
-		<div class="missions-compact">
-			{#each missions as mission, i}
-				{#if mission.result.completed}
-					<div class="mission-dot" class:success={mission.result.success} class:fail={!mission.result.success}>
-						{i + 1}
-					</div>
-				{/if}
-			{/each}
+		<!-- Losers Section -->
+		{#if losers.length > 0}
+			<div class="team-section losers anim-slide-up" style="--delay: 350ms">
+				<h3 class="section-title">{$t.gameEnd.losers}</h3>
+				<div class="players-list">
+					{#each losers as player, i}
+						<div class="player-board" style="--delay: {400 + i * 80}ms">
+							<span class="player-name">{player.name}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Actions -->
+		<div class="actions anim-slide-up" style="--delay: 450ms">
+			<CornerButton team="neutral" onclick={onNewGame}>
+				{$t.gameEnd.newGame}
+			</CornerButton>
+			<CornerButton team="neutral" size="small" onclick={onHome}>
+				{$t.gameEnd.returnHome}
+			</CornerButton>
 		</div>
-	</div>
-
-	<!-- Actions -->
-	<div class="actions anim-slide-up" style="--delay: 550ms">
-		<CornerButton team="neutral" onclick={onNewGame}>
-			{$t.gameEnd.newGame}
-		</CornerButton>
-		<CornerButton team="neutral" size="small" onclick={onHome}>
-			{$t.gameEnd.returnHome}
-		</CornerButton>
 	</div>
 </div>
 
 <style>
 	.game-end {
-		--winner-color: var(--color-good);
-		--winner-glow: rgba(78, 204, 163, 0.3);
-
 		position: relative;
 		min-height: 100dvh;
-		padding: var(--spacing-lg);
 		overflow: hidden;
 	}
 
-	.game-end.evil {
-		--winner-color: var(--color-evil);
-		--winner-glow: rgba(233, 69, 96, 0.3);
+	/* === BACKGROUND === */
+	.background {
+		position: fixed;
+		inset: 0;
+		background-size: cover;
+		background-position: center;
+		z-index: 0;
 	}
 
-	/* === ATMOSPHERE === */
-	.atmosphere {
+	.game-end.good .background {
+		background-image: url('/background-cartel-win.webp');
+	}
+
+	.game-end.evil .background {
+		background-image: url('/background-police-win.webp');
+	}
+
+	/* === OVERLAY === */
+	.overlay {
 		position: fixed;
 		inset: 0;
 		background: linear-gradient(
 			180deg,
-			var(--winner-glow) 0%,
-			transparent 40%
+			rgba(0, 0, 0, 0.6) 0%,
+			rgba(0, 0, 0, 0.3) 50%,
+			rgba(0, 0, 0, 0.6) 100%
 		);
-		pointer-events: none;
-		animation: atmospherePulse 3s ease-in-out infinite;
-	}
-
-	@keyframes atmospherePulse {
-		0%, 100% { opacity: 0.8; }
-		50% { opacity: 1; }
-	}
-
-	/* === RESULT === */
-	.result {
-		position: relative;
 		z-index: 1;
+	}
+
+	/* === CONTENT === */
+	.content {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		min-height: 100dvh;
+		padding: var(--spacing-lg);
+	}
+
+	/* === VICTORY BANNER === */
+	.victory-banner {
 		text-align: center;
 		padding: var(--spacing-lg) 0;
 	}
 
-	.winner-label {
+	.victory-label {
 		font-size: var(--text-sm);
 		text-transform: uppercase;
-		letter-spacing: 0.15em;
+		letter-spacing: 0.2em;
 		color: var(--color-text-muted);
 		margin: 0 0 var(--spacing-xs) 0;
 	}
 
-	.winner-name {
-		font-size: var(--text-3xl);
+	.team-name {
+		font-family: var(--font-display);
+		font-size: clamp(2.5rem, 12vw, 4rem);
 		font-weight: var(--font-weight-extrabold);
-		color: var(--winner-color);
-		margin: 0 0 var(--spacing-xs) 0;
-		text-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.3),
-			0 0 60px var(--winner-glow);
+		text-transform: uppercase;
+		margin: 0 0 var(--spacing-sm) 0;
+		text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	}
+
+	.game-end.good .team-name {
+		color: var(--color-good);
+	}
+
+	.game-end.evil .team-name {
+		color: var(--color-evil);
 	}
 
 	.win-reason {
-		color: var(--color-text-muted);
+		font-size: var(--text-base);
+		color: var(--color-text);
 		margin: 0;
-		font-size: var(--text-sm);
+		font-style: italic;
 	}
 
-	/* === SECTIONS === */
-	.section {
-		position: relative;
-		z-index: 1;
-		margin-bottom: var(--spacing-lg);
+	/* === TEAM SECTIONS === */
+	.team-section {
+		margin-bottom: var(--spacing-md);
 	}
 
 	.section-title {
-		font-size: var(--text-sm);
+		font-family: var(--font-display);
+		font-size: var(--text-xl);
 		font-weight: var(--font-weight-semibold);
-		color: var(--winner-color);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
-		margin: 0 0 var(--spacing-md) 0;
+		margin: 0 0 var(--spacing-sm) 0;
 		text-align: center;
+		text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.6);
 	}
 
-	.losers-title {
+	.winners .section-title {
+		color: var(--color-text);
+	}
+
+	.losers .section-title {
 		color: var(--color-text-muted);
 	}
 
-	/* === WINNERS GRID === */
-	.winners-grid {
+	/* === PLAYERS LIST === */
+	.players-list {
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: var(--spacing-md);
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		align-items: center;
 	}
 
-	.winner-card {
+	/* === PLAYER BOARD === */
+	.player-board {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--spacing-xs);
-		animation: cardIn 400ms var(--ease-out-expo) forwards;
+		justify-content: center;
+		width: 100%;
+		max-width: 400px;
+		padding: var(--spacing-sm) var(--spacing-lg);
+		background: url('/board-crew.webp') center/contain no-repeat;
+		aspect-ratio: 820/200;
+		max-height: 70px;
+		animation: boardIn 400ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
-		transform: scale(0.9);
+		transform: translateX(-10px);
 	}
 
-	@keyframes cardIn {
+	@keyframes boardIn {
 		to {
 			opacity: 1;
-			transform: scale(1);
+			transform: translateX(0);
 		}
 	}
 
-	.winner-image {
-		width: 80px;
-		height: 80px;
-		border-radius: var(--radius-lg);
-		object-fit: cover;
-		object-position: top center;
-		box-shadow: var(--shadow-md), 0 0 20px var(--winner-glow);
-		border: 2px solid var(--winner-color);
+	/* Halo pour les winners */
+	.winners .player-board.winner-glow {
+		filter: drop-shadow(0 0 12px var(--winner-glow-color));
 	}
 
-	.winner-name-label {
-		font-size: var(--text-sm);
+	.game-end.good {
+		--winner-glow-color: var(--color-accent);
+	}
+
+	.game-end.evil {
+		--winner-glow-color: #4a9eff;
+	}
+
+	/* Losers plus discrets */
+	.losers .player-board {
+		max-height: 55px;
+		opacity: 0.85;
+	}
+
+	/* === PLAYER NAME === */
+	.player-name {
+		font-family: 'Swash Break', var(--font-display);
+		font-size: var(--text-xl);
 		font-weight: var(--font-weight-semibold);
-		color: var(--color-text);
-		margin: 0;
+		text-transform: uppercase;
+		color: #3d2a1a;
+		line-height: 1;
 	}
 
-	/* === LOSERS LIST === */
-	.losers-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-sm);
-		padding: 0 var(--spacing-md);
-	}
-
-	.loser-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: var(--spacing-xs) 0;
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.loser-item:last-child {
-		border-bottom: none;
-	}
-
-	.loser-name {
-		font-size: var(--text-sm);
-		color: var(--color-text-muted);
-	}
-
-	/* === MISSIONS COMPACT === */
-	.missions-compact {
-		display: flex;
-		justify-content: center;
-		gap: var(--spacing-sm);
-	}
-
-	.mission-dot {
-		width: 36px;
-		height: 36px;
-		border-radius: var(--radius-md);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-bold);
-		color: var(--color-text);
-	}
-
-	.mission-dot.success {
-		background: rgba(78, 204, 163, 0.2);
-		border: 1px solid var(--color-success);
-		color: var(--color-success);
-	}
-
-	.mission-dot.fail {
-		background: rgba(233, 69, 96, 0.2);
-		border: 1px solid var(--color-danger);
-		color: var(--color-danger);
+	.losers .player-name {
+		font-size: var(--text-lg);
 	}
 
 	/* === ACTIONS === */
 	.actions {
-		position: relative;
-		z-index: 1;
+		margin-top: auto;
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-sm);
-		margin-top: var(--spacing-md);
+		padding-top: var(--spacing-lg);
 	}
 
 	/* === ANIMATIONS === */

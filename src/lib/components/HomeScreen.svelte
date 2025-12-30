@@ -317,8 +317,9 @@
 	/* === LOGO === */
 	.logo-wrapper {
 		position: relative;
-		width: 480px;
-		height: 300px;
+		width: min(85vw, 480px);
+		height: auto;
+		aspect-ratio: 480 / 300;
 	}
 
 	.logo-img {
