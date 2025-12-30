@@ -170,8 +170,8 @@
 		font-size: 3rem;
 		color: var(--accent-color);
 		margin: 0;
+		padding-left: 1.5rem;
 		text-transform: uppercase;
-		transform: rotate(1deg);
 		text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 	}
 
@@ -252,13 +252,13 @@
 		animation: scaleIn 600ms var(--ease-out-expo) forwards;
 		animation-delay: var(--delay, 0ms);
 		opacity: 0;
-		transform: scale(0.9);
+		transform: scale(0.9) rotate(-5deg);
 	}
 
 	@keyframes scaleIn {
 		to {
 			opacity: 1;
-			transform: scale(1);
+			transform: scale(1) rotate(-5deg);
 		}
 	}
 

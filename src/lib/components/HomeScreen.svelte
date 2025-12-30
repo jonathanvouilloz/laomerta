@@ -63,6 +63,7 @@
 
 		<!-- Tagline -->
 		<p class="tagline anim-fade-in" style="--delay: 1200ms">{$t.home.subtitle}</p>
+		<p class="inspired anim-fade-in" style="--delay: 1400ms">{$t.home.inspired}</p>
 
 		<!-- CTA Zone -->
 		<div class="cta-zone anim-fade-in" style="--delay: 1500ms">
@@ -394,6 +395,13 @@
 		font-style: italic;
 		letter-spacing: 0.1em;
 		margin: var(--spacing-lg) 0 0 0;
+	}
+
+	.inspired {
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		margin: var(--spacing-sm) 0 0 0;
+		opacity: 0.7;
 	}
 
 	/* === NAVIGATION PANEL === */

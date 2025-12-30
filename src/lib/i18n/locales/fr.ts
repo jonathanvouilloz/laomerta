@@ -6,7 +6,8 @@ export const fr: Translations = {
 		playerCount: '5-10 gangsters',
 		singlePhone: 'Un seul téléphone',
 		newGame: "Entrer dans l'île",
-		credits: 'Inspiré par The Resistance: Avalon'
+		credits: 'Inspiré par The Resistance: Avalon',
+		inspired: 'Une réinterprétation de The Resistance'
 	},
 
 	setup: {
@@ -178,6 +179,11 @@ export const fr: Translations = {
 		step1: 'Appuyez sur le bouton Partager',
 		step2: "Sélectionnez « Sur l'écran d'accueil »",
 		understood: 'Compris'
+	},
+
+	desktopBlocker: {
+		title: 'Jeu optimisé pour mobile',
+		subtitle: 'Ouvre cette page sur ton téléphone pour jouer.'
 	},
 
 	nightPhase: {

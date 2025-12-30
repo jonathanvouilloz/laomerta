@@ -75,7 +75,7 @@
 </script>
 
 <svelte:head>
-	<title>Isla Plomo</title>
+	<title>Isla Plomo – Inspired by The Resistance</title>
 	<meta name="description" content={$t.meta.description} />
 </svelte:head>
 

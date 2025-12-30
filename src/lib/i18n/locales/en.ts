@@ -6,7 +6,8 @@ export const en: Translations = {
 		playerCount: '5-10 gangsters',
 		singlePhone: 'One phone only',
 		newGame: 'Enter the island',
-		credits: 'Inspired by The Resistance: Avalon'
+		credits: 'Inspired by The Resistance: Avalon',
+		inspired: 'A reimagining of The Resistance'
 	},
 
 	setup: {
@@ -178,6 +179,11 @@ export const en: Translations = {
 		step1: 'Tap the Share button',
 		step2: "Select 'Add to Home Screen'",
 		understood: 'Got it'
+	},
+
+	desktopBlocker: {
+		title: 'Mobile only',
+		subtitle: 'Open this page on your phone to play.'
 	},
 
 	nightPhase: {

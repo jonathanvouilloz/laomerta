@@ -13,6 +13,7 @@ export interface Translations {
 		singlePhone: string;
 		newGame: string;
 		credits: string;
+		inspired: string;
 	};
 
 	// Setup
@@ -200,6 +201,12 @@ export interface Translations {
 		step1: string;
 		step2: string;
 		understood: string;
+	};
+
+	// Desktop Blocker
+	desktopBlocker: {
+		title: string;
+		subtitle: string;
 	};
 
 	// Help
