@@ -38,10 +38,10 @@
 
 	<!-- Decorative role silhouettes -->
 	<div class="role-silhouettes" aria-hidden="true">
-		<img src="/omerta/the-loyalist.webp" alt="" class="silhouette s1" />
-		<img src="/omerta/the-spy.webp" alt="" class="silhouette s2" />
-		<img src="/omerta/the-mole.webp" alt="" class="silhouette s3" />
-		<img src="/omerta/the-assassin.webp" alt="" class="silhouette s4" />
+		<img src="/isla-plomo/the-loyalist.webp" alt="" class="silhouette s1" />
+		<img src="/isla-plomo/the-spy.webp" alt="" class="silhouette s2" />
+		<img src="/isla-plomo/the-mole.webp" alt="" class="silhouette s3" />
+		<img src="/isla-plomo/the-assassin.webp" alt="" class="silhouette s4" />
 	</div>
 
 	<!-- Hero Scene -->

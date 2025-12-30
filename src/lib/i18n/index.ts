@@ -3,7 +3,7 @@ import type { Locale, Translations } from './types';
 import { fr } from './locales/fr';
 import { en } from './locales/en';
 
-const STORAGE_KEY = 'omerta-lang';
+const STORAGE_KEY = 'isla-plomo-lang';
 
 const locales: Record<Locale, Translations> = { fr, en };
 

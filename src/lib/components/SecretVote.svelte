@@ -15,10 +15,10 @@
 	const roleInfo = $derived(getRoleInfo(player, allPlayers, $t));
 
 	const roleImages: Record<Role, string> = {
-		loyalist: '/omerta/the-loyalist.webp',
-		spy: '/omerta/the-spy.webp',
-		assassin: '/omerta/the-assassin.webp',
-		merlin: '/omerta/the-mole.webp'
+		loyalist: '/isla-plomo/the-loyalist.webp',
+		spy: '/isla-plomo/the-spy.webp',
+		assassin: '/isla-plomo/the-assassin.webp',
+		merlin: '/isla-plomo/the-mole.webp'
 	};
 
 	const roleImage = $derived(roleInfo?.role ? roleImages[roleInfo.role] : '');

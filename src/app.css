@@ -118,7 +118,7 @@ body::before {
 	z-index: -1;
 	background-image:
 		linear-gradient(to bottom, rgba(26, 16, 37, 0.6), rgba(26, 16, 37, 0.75)),
-		url('/omerta/background-mobile.webp');
+		url('/isla-plomo/background-mobile.webp');
 	background-size: cover;
 	background-position: center;
 }

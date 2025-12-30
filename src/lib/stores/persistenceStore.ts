@@ -1,6 +1,6 @@
 import type { GameState } from '$lib/types/game';
 
-const STORAGE_KEY = 'omerta-game-state';
+const STORAGE_KEY = 'isla-plomo-game-state';
 
 export interface PersistedGameState extends GameState {
 	version: number; // Pour gérer les migrations futures
