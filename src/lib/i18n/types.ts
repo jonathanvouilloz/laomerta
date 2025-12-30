@@ -97,6 +97,8 @@ export interface Translations {
 	// Game End
 	gameEnd: {
 		victory: string;
+		winners: string;
+		losers: string;
 		accusedPlayer: string;
 		roleReveal: string;
 		recap: string;
@@ -155,6 +157,9 @@ export interface Translations {
 		confirmRestart: string;
 		confirm: string;
 		cancel: string;
+		chooseRestartType: string;
+		freshStart: string;
+		samePlayers: string;
 	};
 
 	// Credits

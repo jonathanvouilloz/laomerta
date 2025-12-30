@@ -11,25 +11,25 @@
 
 	let { onClose, onShowHelp }: Props = $props();
 
-	let showConfirmRestart = $state(false);
-	let isInGame = $derived($gameStore.phase !== 'home' && $gameStore.phase !== 'end');
+	let showRestartOptions = $state(false);
+	let hasPlayers = $derived($gameStore.players.length > 0);
 
 	function handleRestart() {
-		if (isInGame) {
-			showConfirmRestart = true;
-		} else {
-			gameStore.restartGame();
-			onClose();
-		}
+		showRestartOptions = true;
 	}
 
-	function confirmRestart() {
+	function handleFreshStart() {
 		gameStore.restartGame();
 		onClose();
 	}
 
+	function handleSamePlayers() {
+		gameStore.replayWithSamePlayers();
+		onClose();
+	}
+
 	function cancelRestart() {
-		showConfirmRestart = false;
+		showRestartOptions = false;
 	}
 
 	function handleBackdropClick(event: MouseEvent) {
@@ -40,7 +40,7 @@
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
-			if (showConfirmRestart) {
+			if (showRestartOptions) {
 				cancelRestart();
 			} else {
 				onClose();
@@ -68,17 +68,20 @@
 
 		<h2 class="modal-title">{$t.settings.title}</h2>
 
-		{#if showConfirmRestart}
-			<div class="confirm-section animate-fade-in">
-				<p class="confirm-text">{$t.settings.confirmRestart}</p>
-				<div class="confirm-buttons">
-					<CornerButton team="neutral" size="small" onclick={cancelRestart}>
-						{$t.settings.cancel}
+		{#if showRestartOptions}
+			<div class="restart-section animate-fade-in">
+				<p class="restart-title">{$t.settings.chooseRestartType}</p>
+				<div class="restart-buttons">
+					<CornerButton team="neutral" size="small" onclick={handleFreshStart}>
+						{$t.settings.freshStart}
 					</CornerButton>
-					<CornerButton team="evil" size="small" onclick={confirmRestart}>
-						{$t.settings.confirm}
+					<CornerButton team="neutral" size="small" onclick={handleSamePlayers} disabled={!hasPlayers}>
+						{$t.settings.samePlayers}
 					</CornerButton>
 				</div>
+				<button class="cancel-link" onclick={cancelRestart}>
+					{$t.settings.cancel}
+				</button>
 			</div>
 		{:else}
 			<div class="settings-section">
@@ -202,22 +205,38 @@
 		margin: var(--spacing-sm) 0;
 	}
 
-	.confirm-section {
+	.restart-section {
 		text-align: center;
 	}
 
-	.confirm-text {
+	.restart-title {
 		margin-bottom: var(--spacing-lg);
 		color: var(--color-text);
 		font-weight: var(--font-weight-medium);
 	}
 
-	.confirm-buttons {
+	.restart-buttons {
 		display: flex;
-		gap: var(--spacing-md);
+		flex-direction: column;
+		gap: var(--spacing-sm);
 	}
 
-	.confirm-buttons :global(.btn) {
-		flex: 1;
+	.restart-buttons :global(.btn) {
+		width: 100%;
+	}
+
+	.cancel-link {
+		margin-top: var(--spacing-lg);
+		padding: var(--spacing-sm);
+		background: none;
+		border: none;
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		cursor: pointer;
+		transition: color var(--transition-fast);
+	}
+
+	.cancel-link:hover {
+		color: var(--color-text);
 	}
 </style>

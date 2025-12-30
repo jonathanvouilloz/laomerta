@@ -85,6 +85,8 @@ export const fr: Translations = {
 
 	gameEnd: {
 		victory: 'Victoire',
+		winners: 'Les gagnants',
+		losers: 'Les perdants',
 		accusedPlayer: 'Cible abattue :',
 		roleReveal: 'Révélation des rôles',
 		recap: 'Récapitulatif',
@@ -152,7 +154,10 @@ export const fr: Translations = {
 		newGame: 'Nouvelle partie',
 		confirmRestart: 'Abandonner la partie en cours ?',
 		confirm: 'Confirmer',
-		cancel: 'Annuler'
+		cancel: 'Annuler',
+		chooseRestartType: 'Recommencer comment ?',
+		freshStart: 'Nouvelle partie',
+		samePlayers: 'Mêmes joueurs'
 	},
 
 	credits: {
