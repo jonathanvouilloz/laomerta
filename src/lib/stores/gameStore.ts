@@ -83,7 +83,15 @@ function createGameStore() {
 					players: playersWithRoles,
 					missions,
 					currentPlayerIndex: 0,
-					currentLeaderIndex: leaderIndex
+					currentLeaderIndex: leaderIndex,
+					// Réinitialisation explicite pour éviter les bugs de restauration d'état
+					currentMissionIndex: 0,
+					goodScore: 0,
+					evilScore: 0,
+					consecutiveRejections: 0,
+					accusedPlayerId: null,
+					winner: null,
+					winReasonKey: null
 				};
 			}),
 
@@ -331,7 +339,12 @@ function createGameStore() {
 				...initialState,
 				phase: 'setup',
 				players: state.players.map((p) => ({ id: p.id, name: p.name })),
-				useSpecialRoles: state.useSpecialRoles
+				useSpecialRoles: state.useSpecialRoles,
+				// Réinitialisations explicites (sécurité supplémentaire)
+				currentMissionIndex: 0,
+				goodScore: 0,
+				evilScore: 0,
+				consecutiveRejections: 0
 			}))
 	};
 }
