@@ -155,11 +155,11 @@
 
 	/* === ROLE BANNER (tilted black strip) === */
 	.role-banner {
-		width: 120%;
-		margin-left: -10%;
+		width: 120vw;
+		margin-left: -10vw;
 		padding: var(--spacing-lg) var(--spacing-xl);
 		background: rgba(0, 0, 0, 0.95);
-		transform: rotate(-3deg);
+		transform: rotate(-5deg);
 		margin-bottom: var(--spacing-xl);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 	}
