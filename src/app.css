@@ -102,17 +102,25 @@ html {
 body {
 	font-family: var(--font-family);
 	background-color: var(--color-bg);
-	background-image:
-		linear-gradient(to bottom, rgba(26, 16, 37, 0.6), rgba(26, 16, 37, 0.75)),
-		url('/omerta/background-mobile.webp');
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
 	color: var(--color-text);
 	min-height: 100dvh;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	position: relative;
+}
+
+/* Background fixe via pseudo-élément (évite le bug mobile avec background-attachment: fixed) */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background-image:
+		linear-gradient(to bottom, rgba(26, 16, 37, 0.6), rgba(26, 16, 37, 0.75)),
+		url('/omerta/background-mobile.webp');
+	background-size: cover;
+	background-position: center;
 }
 
 /* Container principal */
