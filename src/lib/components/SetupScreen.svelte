@@ -371,19 +371,18 @@
 		width: 100%;
 		margin-top: var(--spacing-md);
 		padding: var(--spacing-sm) var(--spacing-md);
-		background: transparent;
-		border: 1px solid var(--color-surface-light);
+		background: rgba(255, 109, 0, 0.1);
+		border: 1px solid var(--color-accent);
 		border-radius: var(--radius-md);
-		color: var(--color-text-muted);
+		color: var(--color-accent);
 		font-family: var(--font-family);
 		font-size: var(--text-sm);
 		cursor: pointer;
-		transition: border-color 150ms ease, color 150ms ease;
+		transition: background 150ms ease;
 	}
 
 	.accordion-trigger:hover {
-		border-color: var(--color-accent);
-		color: var(--color-text);
+		background: rgba(255, 109, 0, 0.15);
 	}
 
 	.accordion-icon {
@@ -414,22 +413,29 @@
 		flex-direction: column;
 		gap: 4px;
 		padding: var(--spacing-md);
-		background: var(--color-surface-light);
-		border-radius: var(--radius-md);
-		border-left: 3px solid;
+		background: transparent;
+		border: none;
+		border-right: 3px solid;
 	}
 
 	.role-card.good {
-		border-left-color: var(--color-good);
+		border-right-color: var(--color-good);
 	}
 
 	.role-card.evil {
-		border-left-color: var(--color-evil);
+		border-right-color: var(--color-evil);
 	}
 
 	.role-name {
 		font-weight: var(--font-weight-semibold);
-		color: var(--color-text);
+	}
+
+	.role-card.good .role-name {
+		color: var(--color-good);
+	}
+
+	.role-card.evil .role-name {
+		color: var(--color-evil);
 	}
 
 	.role-desc {
