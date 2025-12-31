@@ -16,7 +16,7 @@
 	import MissionResult from '$lib/components/MissionResult.svelte';
 	import MoleAccusation from '$lib/components/MoleAccusation.svelte';
 	import GameEnd from '$lib/components/GameEnd.svelte';
-	import NightPhase from '$lib/components/NightPhase.svelte';
+	import NightNarration from '$lib/components/NightNarration.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
 	import HelpModal from '$lib/components/HelpModal.svelte';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
@@ -100,8 +100,8 @@
 			/>
 		{/if}
 	{:else if $gameStore.phase === 'night-phase'}
-		<NightPhase
-			useSpecialRoles={$gameStore.useSpecialRoles}
+		<NightNarration
+			hasWatcher={$gameStore.useSpecialRoles && $gameStore.players.some(p => p.role === 'merlin')}
 			onComplete={() => gameStore.startGame()}
 		/>
 	{:else if $gameStore.phase === 'mission-team-selection'}

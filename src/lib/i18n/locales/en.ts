@@ -186,6 +186,13 @@ export const en: Translations = {
 		subtitle: 'Open this page on your phone to play.'
 	},
 
+	nightNarration: {
+		chooseMode: 'How to announce the night?',
+		audioMode: 'Audio Narration',
+		manualMode: 'Manual Narrator',
+		listening: 'Listen carefully...'
+	},
+
 	nightPhase: {
 		title: 'Curfew',
 		everyoneCloseEyes: 'Close your eyes. Night falls on Isla Plomo.',

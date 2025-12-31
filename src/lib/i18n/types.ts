@@ -176,6 +176,14 @@ export interface Translations {
 		back: string;
 	};
 
+	// Night Narration
+	nightNarration: {
+		chooseMode: string;
+		audioMode: string;
+		manualMode: string;
+		listening: string;
+	};
+
 	// Night Phase
 	nightPhase: {
 		title: string;
