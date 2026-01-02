@@ -161,7 +161,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-lg);
-		background: url('/board-crew.webp') center/contain no-repeat;
+		background: url('/images/ui/board-crew.webp') center/contain no-repeat;
 		border: none;
 		border-radius: 0;
 		cursor: pointer;

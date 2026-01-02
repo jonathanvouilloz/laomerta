@@ -55,7 +55,7 @@
 		align-items: center;
 		justify-content: flex-end;
 		padding-bottom: 5dvh;
-		background-image: url('/background-mission-success.webp');
+		background-image: url('/images/backgrounds/mission-success.webp');
 		background-size: cover;
 		background-position: center;
 	}
@@ -72,7 +72,7 @@
 	.result.fail {
 		--result-color: var(--color-danger);
 		--result-glow: rgba(233, 69, 96, 0.3);
-		background-image: url('/background-mission-failed.webp');
+		background-image: url('/images/backgrounds/mission-failed.webp');
 	}
 
 	/* === STATS BADGE === */

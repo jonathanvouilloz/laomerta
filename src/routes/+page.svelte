@@ -182,7 +182,7 @@
 		onclick={() => showSettings = true}
 		aria-label={$t.settings.title}
 	>
-		<img src="/settings.webp" alt="" width="35" height="35" />
+		<img src="/images/ui/settings.webp" alt="" width="35" height="35" />
 	</button>
 {/if}
 
@@ -224,7 +224,7 @@
 		align-items: center;
 		justify-content: flex-end;
 		padding-bottom: 15dvh;
-		background-image: url('/background-vote.webp');
+		background-image: url('/images/backgrounds/vote.webp');
 		background-size: cover;
 		background-position: center;
 	}

@@ -94,7 +94,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-lg);
-		background: url('/board-crew.webp') center/contain no-repeat;
+		background: url('/images/ui/board-crew.webp') center/contain no-repeat;
 		aspect-ratio: 820/200;
 		max-height: 55px;
 		animation: boardIn 400ms var(--ease-out-expo) forwards;

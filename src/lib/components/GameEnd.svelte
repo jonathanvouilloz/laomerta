@@ -99,11 +99,11 @@
 	}
 
 	.game-end.good .background {
-		background-image: url('/background-cartel-win.webp');
+		background-image: url('/images/backgrounds/cartel-win.webp');
 	}
 
 	.game-end.evil .background {
-		background-image: url('/background-police-win.webp');
+		background-image: url('/images/backgrounds/police-win.webp');
 	}
 
 	/* === OVERLAY === */
@@ -208,7 +208,7 @@
 		width: 100%;
 		max-width: 400px;
 		padding: var(--spacing-sm) var(--spacing-lg);
-		background: url('/board-crew.webp') center/contain no-repeat;
+		background: url('/images/ui/board-crew.webp') center/contain no-repeat;
 		aspect-ratio: 820/200;
 		max-height: 70px;
 		animation: boardIn 400ms var(--ease-out-expo) forwards;

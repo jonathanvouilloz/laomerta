@@ -10,14 +10,14 @@
 	<!-- Scores - Hors de la Card -->
 	<div class="scores">
 		<div class="score-icon score-icon-good">
-			<img src="/isla-plomo/icon-good.webp" alt="Good" />
+			<img src="/images/ui/icon-good.webp" alt="Good" />
 			<span class="score-value">{goodScore}</span>
 		</div>
 		<div class="vs">
 			<span class="vs-text">VS</span>
 		</div>
 		<div class="score-icon score-icon-bad">
-			<img src="/isla-plomo/icon-bad.webp" alt="Evil" />
+			<img src="/images/ui/icon-bad.webp" alt="Evil" />
 			<span class="score-value">{evilScore}</span>
 		</div>
 	</div>
@@ -37,13 +37,13 @@
 					>
 						{#if mission.result.completed}
 							<img
-								src="/isla-plomo/{mission.result.success ? 'icon-good' : 'icon-bad'}.webp"
+								src="/images/ui/{mission.result.success ? 'icon-good' : 'icon-bad'}.webp"
 								alt=""
 								class="badge-icon"
 							/>
 						{:else}
 							<img
-								src="/mission-badge.webp"
+								src="/images/ui/mission-badge.webp"
 								alt=""
 								class="badge-icon"
 							/>

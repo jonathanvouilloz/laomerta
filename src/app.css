@@ -1,12 +1,12 @@
 @font-face {
 	font-family: 'Urban Heroes';
-	src: url('/urban_heroes/Urban Heroes.ttf') format('truetype');
+	src: url('/fonts/urban-heroes.ttf') format('truetype');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Swash Break';
-	src: url('/swash_break/Swash Break Trial.otf') format('opentype');
+	src: url('/fonts/swash-break.otf') format('opentype');
 	font-display: swap;
 }
 
@@ -118,7 +118,7 @@ body::before {
 	z-index: -1;
 	background-image:
 		linear-gradient(to bottom, rgba(26, 16, 37, 0.6), rgba(26, 16, 37, 0.75)),
-		url('/isla-plomo/background-mobile.webp');
+		url('/images/backgrounds/mobile.webp');
 	background-size: cover;
 	background-position: center;
 }

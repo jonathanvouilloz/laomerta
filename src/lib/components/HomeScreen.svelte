@@ -38,10 +38,10 @@
 
 	<!-- Decorative role silhouettes -->
 	<div class="role-silhouettes" aria-hidden="true">
-		<img src="/isla-plomo/the-loyalist.webp" alt="" class="silhouette s1" />
-		<img src="/isla-plomo/the-spy.webp" alt="" class="silhouette s2" />
-		<img src="/isla-plomo/the-mole.webp" alt="" class="silhouette s3" />
-		<img src="/isla-plomo/the-assassin.webp" alt="" class="silhouette s4" />
+		<img src="/images/characters/the-loyalist.webp" alt="" class="silhouette s1" />
+		<img src="/images/characters/the-spy.webp" alt="" class="silhouette s2" />
+		<img src="/images/characters/the-mole.webp" alt="" class="silhouette s3" />
+		<img src="/images/characters/the-assassin.webp" alt="" class="silhouette s4" />
 	</div>
 
 	<!-- Hero Scene -->
@@ -55,7 +55,7 @@
 			<div class="smoke smoke-right" aria-hidden="true"></div>
 
 			<div class="logo-wrapper anim-logo-reveal">
-				<img src="/logo-homepage.webp" alt="Isla Plomo" class="logo-img" />
+				<img src="/images/ui/logo-homepage.webp" alt="Isla Plomo" class="logo-img" />
 				<div class="logo-glow"></div>
 				<div class="logo-shadow"></div>
 			</div>

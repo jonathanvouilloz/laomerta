@@ -17,7 +17,7 @@
 
 	<!-- Back button -->
 	<button class="back-btn" onclick={() => goto('/')} aria-label={$t.credits.back}>
-		<img src="/arrow-back.webp" alt="" width="44" height="44" />
+		<img src="/images/ui/arrow-back.webp" alt="" width="44" height="44" />
 	</button>
 
 	<!-- Content -->
