@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
+	import Button from '$lib/components/ui/Button.svelte';
 	import CornerButton from '$lib/components/ui/CornerButton.svelte';
 
 	interface Props {
@@ -100,15 +101,13 @@
 			<p class="subtitle">{$t.nightNarration.chooseMode}</p>
 
 			<div class="options">
-				<button class="option-btn" onclick={startAudio}>
-					<span class="option-icon">🔊</span>
-					<span class="option-label">{$t.nightNarration.audioMode}</span>
-				</button>
+				<Button variant="outline" onclick={startAudio}>
+					{$t.nightNarration.audioMode}
+				</Button>
 
-				<button class="option-btn" onclick={startManual}>
-					<span class="option-icon">📖</span>
-					<span class="option-label">{$t.nightNarration.manualMode}</span>
-				</button>
+				<Button variant="outline" onclick={startManual}>
+					{$t.nightNarration.manualMode}
+				</Button>
 			</div>
 
 		{:else if mode === 'audio'}
@@ -233,38 +232,6 @@
 		gap: var(--spacing-lg);
 		width: 100%;
 		max-width: 280px;
-	}
-
-	.option-btn {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-md);
-		padding: var(--spacing-lg) var(--spacing-xl);
-		background: rgba(255, 255, 255, 0.05);
-		border: 2px solid rgba(255, 255, 255, 0.2);
-		border-radius: var(--radius-lg);
-		cursor: pointer;
-		transition: all 200ms ease;
-	}
-
-	.option-btn:hover {
-		background: rgba(255, 255, 255, 0.1);
-		border-color: var(--color-good);
-		transform: scale(1.02);
-	}
-
-	.option-btn:active {
-		transform: scale(0.98);
-	}
-
-	.option-icon {
-		font-size: 2rem;
-	}
-
-	.option-label {
-		font-size: var(--text-lg);
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-text);
 	}
 
 	/* === AUDIO PLAYING === */
